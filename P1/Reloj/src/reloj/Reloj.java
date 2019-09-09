@@ -6,14 +6,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Reloj extends javax.swing.JFrame implements Runnable{
-    String hora, minutos, segundos;
+    String hora, minutos, segundos, horan;
     Calendar calendario;
     Thread h1;
+    
     
     public Reloj() {
         initComponents();
         h1 = new Thread(this);
         h1.start();
+        //horan = hora;
         
         
        setVisible(true);
@@ -118,18 +120,19 @@ public class Reloj extends javax.swing.JFrame implements Runnable{
     @Override
     public void run() {
         Thread ct = Thread.currentThread();
+        horan = hora;
         
         while(ct==h1){
             calcula();
             reloj1.setText(hora+":"+minutos+":"+segundos);
             reloj2.setText(hora+":"+minutos+":"+segundos);
+            reloj3.setText(hora+":"+minutos+":"+segundos);
+            reloj4.setText(hora+":"+minutos+":"+segundos);
             //textHour1.setText(hora+":"+minutos+":"+segundos);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {}
-            
-            
-            
+          
         }
     }
 
@@ -150,6 +153,7 @@ public class Reloj extends javax.swing.JFrame implements Runnable{
         
         calendario.setTime(nuevaHora);
         int hn = Integer.parseInt(horaNueva.getText());
+        horan = hn>9?""+hn:"0"+hn;
         int mn = Integer.parseInt(minNuevo.getText());
         //int 
         reloj2.setText(hn+":"+mn+":"+segundos);
