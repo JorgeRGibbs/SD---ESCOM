@@ -63,19 +63,22 @@ static DefaultTableModel model;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Refrescar");
+        jButton1.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(102, 0, 102));
+        jButton1.setText("Actualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IP", "Hora", "Suma"
+                "Suma", "IP", "Hora"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -101,7 +104,7 @@ static DefaultTableModel model;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,7 +245,7 @@ static DefaultTableModel model;
                     bos.write(receivedData,0,in);
                 int suma = readFile_suma(file);//lee numeros
                 System.out.println("La suma es: " + suma);
-                String query = " INSERT INTO PLAYER (IP, HORA, SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
+                String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                 PreparedStatement preparedStmt = (PreparedStatement) koneksi.prepareStatement(query);
                 preparedStmt.setString (1, client_host);
                 preparedStmt.setString (2, hour);
@@ -281,7 +284,7 @@ static DefaultTableModel model;
         // print the results
         System.out.format("Consulta ["+i+"]: %s, %s, %s\n", ip, hour, sum);
         i++;
-        String [] row = {ip,hour,Integer.toString(sum)}; //agrega los valores a la tabla
+        String [] row = {Integer.toString(sum),ip,hour}; //agrega los valores a la tabla
         model.addRow(row);
       }
     }

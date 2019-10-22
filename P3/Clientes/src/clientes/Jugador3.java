@@ -1,5 +1,5 @@
 package clientes;
-import static clientes.Jugador1.uno;
+import static clientes.Jugador3.uno;
 import java.awt.Component;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -28,7 +28,7 @@ import java.util.Random;
 import javax.swing.JFileChooser;
 
 
-public class Jugador1 extends javax.swing.JFrame {
+public class Jugador3 extends javax.swing.JFrame {
 
     static Hilo uno;
     static Hilo dos;
@@ -43,7 +43,7 @@ public class Jugador1 extends javax.swing.JFrame {
    
     
      
-    public Jugador1() throws RemoteException, IOException {
+    public Jugador3() throws RemoteException, IOException {
         initComponents();
         this.setTitle("Cliente1");
         System.out.println("Iniciando UI");
@@ -282,7 +282,7 @@ public class Jugador1 extends javax.swing.JFrame {
     }
     }
     public static void setUno(Hilo uno) {
-        Jugador1.uno = uno;
+        Jugador3.uno = uno;
     }
 
 
@@ -333,11 +333,11 @@ public class Jugador1 extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    Jugador1 playa = new Jugador1();
+                    Jugador3 playa = new Jugador3();
                     playa.createFile();
                     playa.setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Jugador1.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Jugador3.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
