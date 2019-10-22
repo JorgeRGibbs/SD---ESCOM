@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1;
+package clientes;
 
 import com.mysql.jdbc.Connection;
 import java.io.BufferedInputStream;
@@ -237,12 +237,12 @@ static DefaultTableModel model;
                 
                 //System.out.println(list);
                 //Para guardar fichero recibido
-                bos = new BufferedOutputStream(new FileOutputStream("/home/cesargasca/Desktop/" + file)); //almacena en el escritorio
+                bos = new BufferedOutputStream(new FileOutputStream("C:\\Users\\Jorge\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes\\archivo.txt"/*+ file*/)); //almacena en el escritorio
                 while ((in = bis.read(receivedData)) != -1){
                     bos.write(receivedData,0,in);
                 int suma = readFile_suma(file);//lee numeros
                 System.out.println("La suma es: " + suma);
-                String query = " insert into information (ip, hour, sum)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
+                String query = " INSERT INTO PLAYER (IP, HORA, SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                 PreparedStatement preparedStmt = (PreparedStatement) koneksi.prepareStatement(query);
                 preparedStmt.setString (1, client_host);
                 preparedStmt.setString (2, hour);
@@ -260,7 +260,7 @@ static DefaultTableModel model;
         }
     }
     public static void llenaTabla() throws SQLException{
-    String query = "SELECT * FROM information"; // consulta a la tabla informacion
+    String query = "SELECT * FROM PLAYER"; // consulta a la tabla informacion
     int i = 0;
         //System.out.println("AJAAAAAAAAAAAA");
       // create the java statement
@@ -275,9 +275,9 @@ static DefaultTableModel model;
       // iterate through the java resultset
       while (rs.next())
       {
-        String ip = rs.getString("ip");
-        String hour = rs.getString("hour");
-        int sum = rs.getInt("sum");
+        String ip = rs.getString("IP");
+        String hour = rs.getString("HORA");
+        int sum = rs.getInt("SUMA");
         // print the results
         System.out.format("Consulta ["+i+"]: %s, %s, %s\n", ip, hour, sum);
         i++;
