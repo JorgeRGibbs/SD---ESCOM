@@ -45,7 +45,7 @@ public class Jugador2 extends javax.swing.JFrame {
      
     public Jugador2() throws RemoteException, IOException {
         initComponents();
-        this.setTitle("Cliente1");
+        this.setTitle("Jugador 2");
         System.out.println("Iniciando UI");
         hora1.setEnabled(false);
         //hora2.setEnabled(false);
@@ -63,7 +63,7 @@ public class Jugador2 extends javax.swing.JFrame {
         uno = new Hilo((int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60),hora1);
         Thread t1 = new Thread(uno);
         listen = new HiloServer();
-        HiloServer.setPort(8889);
+        HiloServer.setPort(8890);
         Thread t2 = new Thread(listen);
         t1.start();
         t2.start();
@@ -74,11 +74,15 @@ public class Jugador2 extends javax.swing.JFrame {
     private void initComponents() {
 
         BtnGrpEditar = new javax.swing.ButtonGroup();
+        jButton3 = new javax.swing.JButton();
         hora1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+
+        jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -122,6 +126,15 @@ public class Jugador2 extends javax.swing.JFrame {
 
         jLabel1.setText("CARGAR ARCHIVO");
 
+        jButton4.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(102, 0, 102));
+        jButton4.setText("Generar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,6 +142,7 @@ public class Jugador2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(71, 71, 71)
@@ -153,7 +167,9 @@ public class Jugador2 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -326,6 +342,11 @@ public class Jugador2 extends javax.swing.JFrame {
         enviar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        createFile();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException, AlreadyBoundException, IOException {
 
 //        recibir(hora1);
@@ -377,6 +398,8 @@ public class Jugador2 extends javax.swing.JFrame {
     private static javax.swing.JTextField hora1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables

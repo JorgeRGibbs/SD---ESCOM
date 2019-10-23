@@ -45,7 +45,7 @@ public class Jugador1 extends javax.swing.JFrame {
      
     public Jugador1() throws RemoteException, IOException {
         initComponents();
-        this.setTitle("Cliente1");
+        this.setTitle("Jugador 1");
         System.out.println("Iniciando UI");
         hora1.setEnabled(false);
         //hora2.setEnabled(false);
@@ -79,6 +79,7 @@ public class Jugador1 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -122,6 +123,15 @@ public class Jugador1 extends javax.swing.JFrame {
 
         jLabel1.setText("CARGAR ARCHIVO");
 
+        jButton3.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(102, 0, 102));
+        jButton3.setText("Generar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +147,8 @@ public class Jugador1 extends javax.swing.JFrame {
                         .addComponent(hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(jButton2))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,7 +164,9 @@ public class Jugador1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -299,7 +312,7 @@ public class Jugador1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        fileChooser.setCurrentDirectory(new File("C:\\Users\\Jorge\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
+        fileChooser.setCurrentDirectory(new File("C:\\Users\\GIBS\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
         int returnVal = fileChooser.showOpenDialog((Component)evt.getSource());
         
     if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -325,6 +338,11 @@ public class Jugador1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         enviar();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        createFile();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException, AlreadyBoundException, IOException {
 
@@ -377,6 +395,7 @@ public class Jugador1 extends javax.swing.JFrame {
     private static javax.swing.JTextField hora1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables

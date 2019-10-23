@@ -87,7 +87,7 @@ public class Hilo extends UnicastRemoteObject implements Runnable, Serializable 
     public void run() {
         //System.out.println("start");
         while (true) {
-        System.out.println("start");
+//        System.out.println("start");
             String horaS = "" + hora;
             String minutoS = "" + minuto;
             String segundoS = "" + segundo;

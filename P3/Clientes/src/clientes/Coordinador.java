@@ -5,6 +5,7 @@
  */
 package clientes;
 
+//import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Connection;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Coordinador extends javax.swing.JFrame implements Runnable{
 Thread h;
-private static Connection koneksi;
+private static Connection conn;
 static DefaultTableModel model;
     /**
      * Creates new form NADA
@@ -112,7 +113,7 @@ static DefaultTableModel model;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        System.out.println("EStoy en el boton");
+        System.out.println("Estoy en el boton");
         try {
             llenaTabla(); //refresca tabla con valores de la base de datos
         } catch (SQLException ex) {
@@ -120,25 +121,27 @@ static DefaultTableModel model;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    public static Connection getkoneksi() {
-        if (koneksi==null) {  
+    public static Connection getconn() {
+        if (conn==null) {  
             
           try {
            String url = new String();
            String user = new String();
            String password = new String();
-           url = "jdbc:mysql://localhost:3306/Coordinador";
+           url = "jdbc:mysql://localhost:3306/coordinador";
            user = "root";
            password = "root";
-           
            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-           koneksi = (Connection) DriverManager.getConnection(url,user,password);
-           JOptionPane.showMessageDialog(null,"Connection Successfuly");
+                      System.out.println("yes");
+           conn = (Connection) DriverManager.getConnection(url,user,password);
+              System.out.println("Alles ist gut");
+           //JOptionPane.showMessageDialog(null,"Connection Successful");
                 } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, "Connection Failed" +e);
+                    System.out.println(e);
+                    //JOptionPane.showMessageDialog(null, "Connection Failed" +e);
                 }       
         }
-        return koneksi;
+        return conn;
     }
     
     public static int readFile_suma(String file_path) throws IOException{
@@ -194,7 +197,7 @@ static DefaultTableModel model;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Coordinador().setVisible(true);
-                Coordinador.getkoneksi(); //obtiene conexion a la base de datos  
+                Coordinador.getconn(); //obtiene conexion a la base de datos  
             }
         });
     }
@@ -229,7 +232,6 @@ static DefaultTableModel model;
                 receivedData = new byte[1024];
                 bis = new BufferedInputStream(connection.getInputStream());
                 DataInputStream dis=new DataInputStream(connection.getInputStream());
-                //Recibimos el nombre del fichero
                 file = dis.readUTF();
                 String client_host = dis.readUTF();
                 String hour = dis.readUTF();
@@ -240,13 +242,15 @@ static DefaultTableModel model;
                 
                 //System.out.println(list);
                 //Para guardar fichero recibido
-                bos = new BufferedOutputStream(new FileOutputStream("C:\\Users\\Jorge\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes\\archivo.txt"/*+ file*/)); //almacena en el escritorio
+                bos = new BufferedOutputStream(new FileOutputStream("..\\" + file)); //almacena en el escritorio
                 while ((in = bis.read(receivedData)) != -1){
-                    bos.write(receivedData,0,in);
+                bos.write(receivedData,0,in);
+                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
+                //System.out.println(hour);
                 int suma = readFile_suma(file);//lee numeros
                 System.out.println("La suma es: " + suma);
                 String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
-                PreparedStatement preparedStmt = (PreparedStatement) koneksi.prepareStatement(query);
+                PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
                 preparedStmt.setString (1, client_host);
                 preparedStmt.setString (2, hour);
                 preparedStmt.setInt(3, suma);
@@ -256,7 +260,7 @@ static DefaultTableModel model;
             }
             bos.close();
             dis.close();
-            //koneksi.close();
+            //conn.close();
             }
         }catch (Exception e ) {
             System.err.println(e);
@@ -267,7 +271,7 @@ static DefaultTableModel model;
     int i = 0;
         //System.out.println("AJAAAAAAAAAAAA");
       // create the java statement
-      Statement st = (Statement) koneksi.createStatement();
+      Statement st = (Statement) conn.createStatement();
       
       // execute the query,nd get a java resultset
       ResultSet rs = st.executeQuery(query); //Conjunto de valores devueltos por la consulta
