@@ -37,14 +37,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author cesargasca
  */
-public class Coordinador extends javax.swing.JFrame implements Runnable{
+public class ServerA extends javax.swing.JFrame implements Runnable{
 Thread h;
 private static Connection conn;
 static DefaultTableModel model;
     /**
      * Creates new form NADA
      */
-    public Coordinador() {
+    public ServerA() {
         initComponents();
         //recibe();
         h = new Thread(this);
@@ -118,7 +118,7 @@ static DefaultTableModel model;
         try {
             llenaTabla(); //refresca tabla con valores de la base de datos
         } catch (SQLException ex) {
-            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServerA.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
@@ -129,7 +129,7 @@ static DefaultTableModel model;
            String url = new String();
            String user = new String();
            String password = new String();
-           url = "jdbc:mysql://localhost:3306/coordinador";
+           url = "jdbc:mysql://localhost:3306/coordinador1";
            user = "root";
            password = "root";
            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -184,21 +184,24 @@ static DefaultTableModel model;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServerA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Coordinador().setVisible(true);
-                Coordinador.getconn(); //obtiene conexion a la base de datos  
+                new ServerA().setVisible(true);
+                ServerA.getconn(); //obtiene conexion a la base de datos  
             }
         });
     }
