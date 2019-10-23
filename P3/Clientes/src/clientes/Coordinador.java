@@ -247,8 +247,8 @@ static DefaultTableModel model;
                 String client_host = dis.readUTF();
                 String hour = dis.readUTF();
                 //System.out.println("Recibi archivo: " + file); //recibe archivo
-                System.out.println("Desde: " + client_host); //recibe la direccion ip
-                System.out.println("A las: " + hour); // recibe hora
+                //System.out.println("Desde: " + client_host); //recibe la direccion ip
+                System.out.println(hour); // recibe hora
                 file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
                 
                 //System.out.println(list);
@@ -257,7 +257,7 @@ static DefaultTableModel model;
                 while ((in = bis.read(receivedData)) != -1){
                 bos.write(receivedData,0,in);
                 System.out.println(hour);
-                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,5);
+                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
                 //int suma = readFile_suma(file);//lee numeros
                 System.out.println("La suma es: " + suma);
                 String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos

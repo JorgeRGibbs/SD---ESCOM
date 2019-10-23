@@ -278,6 +278,7 @@ public class Jugador3 extends javax.swing.JFrame {
  public void createFile(){
     Writer writer = null;
     Random rand = new Random();
+    nombre = "archivo";
     try {
         writer = new BufferedWriter(new OutputStreamWriter(
               new FileOutputStream(this.nombre +".txt"), "utf-8"));
