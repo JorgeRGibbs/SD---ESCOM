@@ -287,7 +287,7 @@ public class Jugador2 extends javax.swing.JFrame {
         for(int i = 0; i < 100 ; i++){
             int n = rand.nextInt(50);
             if(i != 99)
-                writer.write(Integer.toString(n) + ",");
+                writer.write(Integer.toString(n) + "\n");
             else
                 writer.write(Integer.toString(n));
         }

@@ -23,6 +23,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -217,7 +219,7 @@ static DefaultTableModel model;
         DataOutputStream output;
         BufferedInputStream bis;
         BufferedOutputStream bos;
-
+        List lista = new ArrayList();
         byte[] receivedData;
         int in;
         String file;
@@ -233,9 +235,19 @@ static DefaultTableModel model;
                 bis = new BufferedInputStream(connection.getInputStream());
                 DataInputStream dis=new DataInputStream(connection.getInputStream());
                 file = dis.readUTF();
+                int i = 0;
+                int suma = 0;
+                while(i<100){
+                    //lista.add(Integer.parseInt(dis.readUTF()));
+                    //System.out.println(lista);
+                    suma = suma + Integer.parseInt(dis.readUTF());
+                    i++;
+                }
+                //int suma = lista.stream().mapToInt(Integer::intValue).sum();
+                System.out.println(lista);
                 String client_host = dis.readUTF();
                 String hour = dis.readUTF();
-                System.out.println("Recibi archivo: " + file); //recibe archivo
+                //System.out.println("Recibi archivo: " + file); //recibe archivo
                 System.out.println("Desde: " + client_host); //recibe la direccion ip
                 System.out.println("A las: " + hour); // recibe hora
                 file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
@@ -245,9 +257,9 @@ static DefaultTableModel model;
                 bos = new BufferedOutputStream(new FileOutputStream("..\\" + file)); //almacena en el escritorio
                 while ((in = bis.read(receivedData)) != -1){
                 bos.write(receivedData,0,in);
-                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
-                //System.out.println(hour);
-                int suma = readFile_suma(file);//lee numeros
+                System.out.println(hour);
+                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,5);
+                //int suma = readFile_suma(file);//lee numeros
                 System.out.println("La suma es: " + suma);
                 String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                 PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
@@ -264,6 +276,7 @@ static DefaultTableModel model;
             }
         }catch (Exception e ) {
             System.err.println(e);
+            System.out.println(e);
         }
     }
     public static void llenaTabla() throws SQLException{

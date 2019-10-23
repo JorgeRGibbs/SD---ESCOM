@@ -25,6 +25,7 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 
@@ -201,7 +202,13 @@ public class Jugador1 extends javax.swing.JFrame {
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
-         dos.writeUTF(localFile.getName());
+         Scanner scanner = new Scanner(new File(this.fileName));
+                  dos.writeUTF(localFile.getName());
+         while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            dos.writeUTF(line);
+        // process the line
+         }
          dos.writeUTF(ip.getHostAddress());
          dos.writeUTF(Integer.toString(Hilo.hora)+Integer.toString(Hilo.minuto)+Integer.toString(Hilo.segundo));
          byteArray = new byte[8192];
@@ -284,7 +291,7 @@ public class Jugador1 extends javax.swing.JFrame {
         for(int i = 0; i < 100 ; i++){
             int n = rand.nextInt(50);
             if(i != 99)
-                writer.write(Integer.toString(n) + ",");
+                writer.write(Integer.toString(n) + "\n");
             else
                 writer.write(Integer.toString(n));
         }
