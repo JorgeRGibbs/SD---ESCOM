@@ -25,6 +25,7 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 
@@ -45,7 +46,7 @@ public class Jugador3 extends javax.swing.JFrame {
      
     public Jugador3() throws RemoteException, IOException {
         initComponents();
-        this.setTitle("Jugador 3");
+        this.setTitle("Jugador 1");
         System.out.println("Iniciando UI");
         hora1.setEnabled(false);
         //hora2.setEnabled(false);
@@ -201,9 +202,37 @@ public class Jugador3 extends javax.swing.JFrame {
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
-         dos.writeUTF(localFile.getName());
+         Scanner scanner = new Scanner(new File(this.fileName));
+                  dos.writeUTF(localFile.getName());
+         while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            dos.writeUTF(line);
+        // process the line
+         }
          dos.writeUTF(ip.getHostAddress());
-         dos.writeUTF(Integer.toString(Hilo.hora)+Integer.toString(Hilo.minuto)+Integer.toString(Hilo.segundo));
+         String uhr;
+         String minuten;
+         String sekunden;
+         if (Hilo.hora < 10) {
+                 uhr = "0"+Integer.toString(Hilo.hora);
+         }
+         else {
+             uhr = Integer.toString(Hilo.hora);
+         }
+         if (Hilo.minuto < 10) {
+                 minuten = "0"+Integer.toString(Hilo.minuto);
+         }
+         else {
+             minuten = Integer.toString(Hilo.minuto);
+         }
+         if (Hilo.segundo < 10) {
+                 sekunden = "0"+Integer.toString(Hilo.segundo);
+         }
+         else {
+             sekunden = Integer.toString(Hilo.segundo);
+         }
+         
+         dos.writeUTF(uhr+minuten+sekunden);
          byteArray = new byte[8192];
          while ((in = bis.read(byteArray)) != -1){
          bos.write(byteArray,0,in);
@@ -283,7 +312,7 @@ public class Jugador3 extends javax.swing.JFrame {
         writer = new BufferedWriter(new OutputStreamWriter(
               new FileOutputStream(this.nombre +".txt"), "utf-8"));
         for(int i = 0; i < 100 ; i++){
-            int n = rand.nextInt(50);
+            int n = rand.nextInt(100);
             if(i != 99)
                 writer.write(Integer.toString(n) + "\n");
             else
@@ -313,7 +342,7 @@ public class Jugador3 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        fileChooser.setCurrentDirectory(new File("C:\\Users\\Jorge\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
+        fileChooser.setCurrentDirectory(new File("C:\\Users\\GIBS\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
         int returnVal = fileChooser.showOpenDialog((Component)evt.getSource());
         
     if (returnVal == JFileChooser.APPROVE_OPTION) {

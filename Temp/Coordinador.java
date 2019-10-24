@@ -60,88 +60,67 @@ static DefaultTableModel model;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        campoHora = new javax.swing.JTextField();
-        campoSuma = new javax.swing.JTextField();
-        campoIp = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        campoHora.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(102, 0, 102));
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoHoraActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        campoSuma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoSumaActionPerformed(evt);
+        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Suma", "IP", "Hora"
             }
-        });
-
-        campoIp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoIpActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("       HORA");
-
-        jLabel2.setText("        SUMA");
-
-        jLabel3.setText("            IP");
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jButton1)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jButton1)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoHoraActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoHoraActionPerformed
-
-    private void campoSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSumaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoSumaActionPerformed
-
-    private void campoIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoIpActionPerformed
+        try {
+            llenaTabla(); //refresca tabla con valores de la base de datos
+        } catch (SQLException ex) {
+            Logger.getLogger(Coordinador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public static Connection getconn() {
         if (conn==null) {  
@@ -214,9 +193,6 @@ static DefaultTableModel model;
             java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -228,12 +204,9 @@ static DefaultTableModel model;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField campoHora;
-    private javax.swing.JTextField campoIp;
-    private javax.swing.JTextField campoSuma;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -263,7 +236,6 @@ static DefaultTableModel model;
                 file = dis.readUTF();
                 int i = 0;
                 int suma = 0;
-                System.out.println("imma read the numbas");
                 while(i<100){
                     //lista.add(Integer.parseInt(dis.readUTF()));
                     //System.out.println(lista);
@@ -272,13 +244,12 @@ static DefaultTableModel model;
                 }
                 //int suma = lista.stream().mapToInt(Integer::intValue).sum();
                 System.out.println(lista);
-                String ip = dis.readUTF();
+                String client_host = dis.readUTF();
                 String hour = dis.readUTF();
-                System.out.println("recieved ip");
                 //System.out.println("Recibi archivo: " + file); //recibe archivo
-                //System.out.println("Desde: " + ip); //recibe la direccion ip
+                //System.out.println("Desde: " + client_host); //recibe la direccion ip
                 System.out.println(hour); // recibe hora
-                //file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
+                file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
                 //System.out.println(list);
                 //Para guardar fichero recibido
                 bos = new BufferedOutputStream(new FileOutputStream("..\\" + file)); //almacena en el escritorio
@@ -287,15 +258,10 @@ static DefaultTableModel model;
                 System.out.println(hour);
                 hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
                 //int suma = readFile_suma(file);//lee numeros
-                campoHora.setText(hour);
-                campoSuma.setText(Integer.toString(suma));
-                campoIp.setText(ip);
-                
                 System.out.println("La suma es: " + suma);
                 String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                 PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
-                System.out.println("sending ip");
-                preparedStmt.setString (1, ip);
+                preparedStmt.setString (1, client_host);
                 preparedStmt.setString (2, hour);
                 preparedStmt.setInt(3, suma);
                 preparedStmt.execute(); //ejecuta comando sql
@@ -320,8 +286,8 @@ static DefaultTableModel model;
       
       // execute the query,nd get a java resultset
       ResultSet rs = st.executeQuery(query); //Conjunto de valores devueltos por la consulta
-      //model = (DefaultTableModel) jTable1.getModel(); //para modificar tabla JTable
-      //model.getDataVector().removeAllElements();//borra valores de la tabla para volver a llenar
+      model = (DefaultTableModel) jTable1.getModel(); //para modificar tabla JTable
+      model.getDataVector().removeAllElements();//borra valores de la tabla para volver a llenar
 
 
       // iterate through the java resultset
