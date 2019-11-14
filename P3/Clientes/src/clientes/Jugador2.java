@@ -198,7 +198,7 @@ public class Jugador2 extends javax.swing.JFrame {
         try{
          InetAddress ip = InetAddress.getLocalHost();
          final File localFile = new File( this.fileName );
-         Socket client = new Socket("localhost", 5800); //servidor
+         Socket client = new Socket("localhost", 5801); //servidor
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());

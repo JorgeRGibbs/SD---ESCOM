@@ -210,7 +210,29 @@ public class Jugador1 extends javax.swing.JFrame {
         // process the line
          }
          dos.writeUTF(ip.getHostAddress());
-         dos.writeUTF(Integer.toString(Hilo.hora)+Integer.toString(Hilo.minuto)+Integer.toString(Hilo.segundo));
+         String uhr;
+         String minuten;
+         String sekunden;
+         if (Hilo.hora < 10) {
+                 uhr = "0"+Integer.toString(Hilo.hora);
+         }
+         else {
+             uhr = Integer.toString(Hilo.hora);
+         }
+         if (Hilo.minuto < 10) {
+                 minuten = "0"+Integer.toString(Hilo.minuto);
+         }
+         else {
+             minuten = Integer.toString(Hilo.minuto);
+         }
+         if (Hilo.segundo < 10) {
+                 sekunden = "0"+Integer.toString(Hilo.segundo);
+         }
+         else {
+             sekunden = Integer.toString(Hilo.segundo);
+         }
+         
+         dos.writeUTF(uhr+minuten+sekunden);
          byteArray = new byte[8192];
          while ((in = bis.read(byteArray)) != -1){
          bos.write(byteArray,0,in);
@@ -285,11 +307,12 @@ public class Jugador1 extends javax.swing.JFrame {
  public void createFile(){
     Writer writer = null;
     Random rand = new Random();
+    nombre = "archivo";
     try {
         writer = new BufferedWriter(new OutputStreamWriter(
               new FileOutputStream(this.nombre +".txt"), "utf-8"));
         for(int i = 0; i < 100 ; i++){
-            int n = rand.nextInt(50);
+            int n = rand.nextInt(100);
             if(i != 99)
                 writer.write(Integer.toString(n) + "\n");
             else

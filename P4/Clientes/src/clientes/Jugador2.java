@@ -25,6 +25,7 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 
@@ -45,7 +46,7 @@ public class Jugador2 extends javax.swing.JFrame {
      
     public Jugador2() throws RemoteException, IOException {
         initComponents();
-        this.setTitle("Jugador 2");
+        this.setTitle("Jugador 1");
         System.out.println("Iniciando UI");
         hora1.setEnabled(false);
         //hora2.setEnabled(false);
@@ -74,15 +75,12 @@ public class Jugador2 extends javax.swing.JFrame {
     private void initComponents() {
 
         BtnGrpEditar = new javax.swing.ButtonGroup();
-        jButton3 = new javax.swing.JButton();
         hora1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-
-        jButton3.setText("jButton3");
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -126,12 +124,12 @@ public class Jugador2 extends javax.swing.JFrame {
 
         jLabel1.setText("CARGAR ARCHIVO");
 
-        jButton4.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(102, 0, 102));
-        jButton4.setText("Generar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(102, 0, 102));
+        jButton3.setText("Generar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -142,7 +140,6 @@ public class Jugador2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(71, 71, 71)
@@ -151,7 +148,8 @@ public class Jugador2 extends javax.swing.JFrame {
                         .addComponent(hora1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(jButton2))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -168,8 +166,8 @@ public class Jugador2 extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,9 +202,37 @@ public class Jugador2 extends javax.swing.JFrame {
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
-         dos.writeUTF(localFile.getName());
+         Scanner scanner = new Scanner(new File(this.fileName));
+                  dos.writeUTF(localFile.getName());
+         while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            dos.writeUTF(line);
+        // process the line
+         }
          dos.writeUTF(ip.getHostAddress());
-         dos.writeUTF(Integer.toString(Hilo.hora)+Integer.toString(Hilo.minuto)+Integer.toString(Hilo.segundo));
+         String uhr;
+         String minuten;
+         String sekunden;
+         if (Hilo.hora < 10) {
+                 uhr = "0"+Integer.toString(Hilo.hora);
+         }
+         else {
+             uhr = Integer.toString(Hilo.hora);
+         }
+         if (Hilo.minuto < 10) {
+                 minuten = "0"+Integer.toString(Hilo.minuto);
+         }
+         else {
+             minuten = Integer.toString(Hilo.minuto);
+         }
+         if (Hilo.segundo < 10) {
+                 sekunden = "0"+Integer.toString(Hilo.segundo);
+         }
+         else {
+             sekunden = Integer.toString(Hilo.segundo);
+         }
+         
+         dos.writeUTF(uhr+minuten+sekunden);
          byteArray = new byte[8192];
          while ((in = bis.read(byteArray)) != -1){
          bos.write(byteArray,0,in);
@@ -281,11 +307,12 @@ public class Jugador2 extends javax.swing.JFrame {
  public void createFile(){
     Writer writer = null;
     Random rand = new Random();
+    nombre = "archivo";
     try {
         writer = new BufferedWriter(new OutputStreamWriter(
               new FileOutputStream(this.nombre +".txt"), "utf-8"));
         for(int i = 0; i < 100 ; i++){
-            int n = rand.nextInt(50);
+            int n = rand.nextInt(100);
             if(i != 99)
                 writer.write(Integer.toString(n) + "\n");
             else
@@ -315,7 +342,7 @@ public class Jugador2 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        fileChooser.setCurrentDirectory(new File("C:\\Users\\Jorge\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
+        fileChooser.setCurrentDirectory(new File("C:\\Users\\GIBS\\Documents\\GitHub\\SD---ESCOM\\P3\\Clientes"));
         int returnVal = fileChooser.showOpenDialog((Component)evt.getSource());
         
     if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -342,10 +369,10 @@ public class Jugador2 extends javax.swing.JFrame {
         enviar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         createFile();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException, AlreadyBoundException, IOException {
 
@@ -399,7 +426,6 @@ public class Jugador2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables

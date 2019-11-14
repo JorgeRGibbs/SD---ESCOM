@@ -190,6 +190,7 @@ public class Jugador1 extends javax.swing.JFrame {
         socket.close();
     }*/
     public void enviar(){
+        String flag = "0";
         DataInputStream input;
         BufferedInputStream bis;
         BufferedOutputStream bos;
@@ -204,6 +205,7 @@ public class Jugador1 extends javax.swing.JFrame {
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
          Scanner scanner = new Scanner(new File(this.fileName));
                   dos.writeUTF(localFile.getName());
+                  dos.writeUTF(flag);
          while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             dos.writeUTF(line);
