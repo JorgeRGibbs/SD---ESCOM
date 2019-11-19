@@ -1,5 +1,5 @@
 package clientes;
-import static clientes.Jugador3.uno;
+import static clientes.Jugador11.uno;
 import java.awt.Component;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -29,7 +29,7 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 
-public class Jugador3 extends javax.swing.JFrame {
+public class Jugador11 extends javax.swing.JFrame {
 
     static Hilo uno;
     static Hilo dos;
@@ -44,7 +44,7 @@ public class Jugador3 extends javax.swing.JFrame {
    
     
      
-    public Jugador3() throws RemoteException, IOException {
+    public Jugador11() throws RemoteException, IOException {
         initComponents();
         this.setTitle("Jugador 1");
         System.out.println("Iniciando UI");
@@ -64,7 +64,7 @@ public class Jugador3 extends javax.swing.JFrame {
         uno = new Hilo((int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60),hora1);
         Thread t1 = new Thread(uno);
         listen = new HiloServer();
-        HiloServer.setPort(8891);
+        HiloServer.setPort(8890);
         Thread t2 = new Thread(listen);
         t1.start();
         t2.start();
@@ -194,16 +194,19 @@ public class Jugador3 extends javax.swing.JFrame {
         BufferedInputStream bis;
         BufferedOutputStream bos;
         int in;
+        int this_client = 5801;
+        String flag ="0";
         byte[] byteArray;
         try{
          InetAddress ip = InetAddress.getLocalHost();
          final File localFile = new File( this.fileName );
-         Socket client = new Socket("localhost", 5800); //servidor
+         Socket client = new Socket("localhost", 5801); //servidor
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
          Scanner scanner = new Scanner(new File(this.fileName));
-                  dos.writeUTF(localFile.getName());
+         //         dos.writeUTF(localFile.getName());
+                  dos.writeUTF(flag);
          while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             dos.writeUTF(line);
@@ -325,7 +328,7 @@ public class Jugador3 extends javax.swing.JFrame {
     }
     }
     public static void setUno(Hilo uno) {
-        Jugador3.uno = uno;
+        Jugador11.uno = uno;
     }
 
 
@@ -381,11 +384,11 @@ public class Jugador3 extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    Jugador3 playa = new Jugador3();
+                    Jugador11 playa = new Jugador11();
                     playa.createFile();
                     playa.setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(Jugador3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Jugador11.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }

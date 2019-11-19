@@ -5,6 +5,35 @@
  */
 package clientes;
 
+import static clientes.Jugador1.uno;
+import java.awt.Component;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
+//import hilo.Hilito;//
+//import static servidor.Interfaz.cuatro;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Random;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+
 //import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Connection;
 import java.io.BufferedInputStream;
@@ -35,16 +64,16 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author cesargasca
+ * @author GIBS
  */
-public class Coordinador extends javax.swing.JFrame implements Runnable{
+public class ServidorB1 extends javax.swing.JFrame implements Runnable{
 Thread h;
 private static Connection conn;
 static DefaultTableModel model;
     /**
      * Creates new form NADA
      */
-    public Coordinador() {
+    public ServidorB1() {
         initComponents();
         //recibe();
         h = new Thread(this);
@@ -150,7 +179,7 @@ static DefaultTableModel model;
            String url = new String();
            String user = new String();
            String password = new String();
-           url = "jdbc:mysql://localhost:3306/coordinador";
+           url = "jdbc:mysql://localhost:3306/coordinador2";
            user = "root";
            password = "root";
            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -205,14 +234,42 @@ static DefaultTableModel model;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorB1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorB1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorB1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Coordinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorB1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -221,8 +278,8 @@ static DefaultTableModel model;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Coordinador().setVisible(true);
-                Coordinador.getconn(); //obtiene conexion a la base de datos  
+                new ServidorB1().setVisible(true);
+                ServidorB1.getconn(); //obtiene conexion a la base de datos  
             }
         });
     }
@@ -241,18 +298,23 @@ static DefaultTableModel model;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         ServerSocket server;
         Socket connection;
-
+        
+        int this_server,next_server;
+        this_server = 5801;
+        next_server = 5800;
         DataOutputStream output;
         BufferedInputStream bis;
         BufferedOutputStream bos;
         List lista = new ArrayList();
         byte[] receivedData;
+        String fileName;
         int in;
         String file;
-
+        String localFile;
+        String flag;
         try{
             //Servidor Socket en el puerto 5000
-            server = new ServerSocket( 5800 );
+            server = new ServerSocket( this_server );
             while ( true ) {
                 //Aceptar conexiones
                 connection = server.accept();
@@ -260,49 +322,136 @@ static DefaultTableModel model;
                 receivedData = new byte[1024];
                 bis = new BufferedInputStream(connection.getInputStream());
                 DataInputStream dis=new DataInputStream(connection.getInputStream());
-                file = dis.readUTF();
-                int i = 0;
-                int suma = 0;
-                System.out.println("imma read the numbas");
-                while(i<100){
-                    //lista.add(Integer.parseInt(dis.readUTF()));
-                    //System.out.println(lista);
-                    suma = suma + Integer.parseInt(dis.readUTF());
-                    i++;
+                //file = "Hola.txt";
+                //file = dis.readUTF();
+                flag = dis.readUTF();
+                //System.out.println(file);
+                System.out.println(flag);
+                if(flag.equals("0")){
+                    int i = 0;
+                    int suma = 0;
+                    System.out.println("imma read the numbas");
+                    while(i<100){
+                        //lista.add(Integer.parseInt(dis.readUTF()));
+                        //System.out.println(lista);
+                        suma = suma + Integer.parseInt(dis.readUTF());
+                        i++;
+                    }
+                    //int suma = lista.stream().mapToInt(Integer::intValue).sum();
+                    System.out.println(lista);
+                    String ip = dis.readUTF();
+                    String hour = dis.readUTF();
+                    System.out.println("recieved ip");
+                    //System.out.println("Recibi archivo: " + file); //recibe archivo
+                    //System.out.println("Desde: " + ip); //recibe la direccion ip
+                    System.out.println(hour); // recibe hora
+                    //file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
+                    //System.out.println(list);
+                    //Para guardar fichero recibido
+//                    bos = new BufferedOutputStream(new FileOutputStream("..\\" + file)); //almacena en el escritorio
+                    while ((in = bis.read(receivedData)) != -1){
+//                    bos.write(receivedData,0,in);
+                    System.out.println(hour);
+                    hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
+                    //int suma = readFile_suma(file);//lee numeros
+                    campoHora.setText(hour);
+                    campoSuma.setText(Integer.toString(suma));
+                    campoIp.setText(ip);
+
+                    System.out.println("La suma es: " + suma);
+                    String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
+                    PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+                    System.out.println("sending ip");
+                    preparedStmt.setString (1, ip);
+                    preparedStmt.setString (2, hour);
+                    preparedStmt.setInt(3, suma);
+                    preparedStmt.execute(); //ejecuta comando sql
+                    //llenaTabla();
+                    //if(flag.equals("0")){
+                    DataInputStream input;
+                    BufferedInputStream s_bis;
+                    BufferedOutputStream s_bos;
+                    flag = "1";
+    //                String fileName;
+                    //int in;
+                    try{
+                        //InetAddress ip = InetAddress.getLocalHost();
+                        //final File s_localFile = new File( this.fileName );
+                        Socket client = new Socket("localhost", next_server); //servidor
+                        //bis = new BufferedInputStream(new FileInputStream(localFile));
+                        //bos = new BufferedOutputStream(client.getOutputStream());
+                        DataOutputStream dos = new DataOutputStream(client.getOutputStream());
+                        //Scanner scanner = new Scanner(new File(this.fileName));
+                        /*dos.writeUTF(localFile.getName());
+                         while (scanner.hasNextLine()) {
+                            String line = scanner.nextLine();
+                            dos.writeUTF(line);
+                        // process the line
+                        }*/
+                        dos.writeUTF(flag);
+                        dos.writeUTF(ip);
+                        dos.writeUTF(hour);
+                        dos.writeUTF(Integer.toString(suma));
+                        /*//dos.writeUTF(ip.getHostAddress());
+                        String uhr;
+                        String minuten;
+                        String sekunden;
+                        if (Hilo.hora < 10) {
+                                uhr = "0"+Integer.toString(Hilo.hora);
+                        }
+                        else {
+                            uhr = Integer.toString(Hilo.hora);
+                        }
+                        if (Hilo.minuto < 10) {
+                                minuten = "0"+Integer.toString(Hilo.minuto);
+                        }
+                        else {
+                            minuten = Integer.toString(Hilo.minuto);
+                        }
+                        if (Hilo.segundo < 10) {
+                                sekunden = "0"+Integer.toString(Hilo.segundo);
+                        }
+                        else {
+                            sekunden = Integer.toString(Hilo.segundo);
+                        }
+
+                        dos.writeUTF(uhr+minuten+sekunden);
+                        byteArray = new byte[8192];
+                        while ((in = bis.read(byteArray)) != -1){
+                        bos.write(byteArray,0,in);
+                        }
+                        */
+                       //s_bis.close();
+//                       bos.close();
+
+                       }catch ( Exception e ) {
+                        System.err.println(e);
+                        }
                 }
-                //int suma = lista.stream().mapToInt(Integer::intValue).sum();
-                System.out.println(lista);
-                String ip = dis.readUTF();
-                String hour = dis.readUTF();
-                System.out.println("recieved ip");
-                //System.out.println("Recibi archivo: " + file); //recibe archivo
-                //System.out.println("Desde: " + ip); //recibe la direccion ip
-                System.out.println(hour); // recibe hora
-                //file = file.substring(file.indexOf("\\")+1,file.length()); //obtiene solo el nombre del archivo
-                //System.out.println(list);
-                //Para guardar fichero recibido
-                bos = new BufferedOutputStream(new FileOutputStream("..\\" + file)); //almacena en el escritorio
-                while ((in = bis.read(receivedData)) != -1){
-                bos.write(receivedData,0,in);
-                System.out.println(hour);
-                hour = hour.substring(0,2)+":"+hour.substring(2,4)+":"+hour.substring(4,6);
-                //int suma = readFile_suma(file);//lee numeros
-                campoHora.setText(hour);
-                campoSuma.setText(Integer.toString(suma));
-                campoIp.setText(ip);
+            }else{
+                    System.out.println(flag);
+                    System.out.println("Recieveing forwarded data...");
+                    String ip = dis.readUTF();
+                    System.out.println("ip:"+ip+"");
+                    String hour = dis.readUTF();
+                    System.out.println("time:"+hour+"");
+                    String suma = dis.readUTF();
+                    System.out.println("sum:"+suma+"");
+                    campoHora.setText(hour);
+                    campoSuma.setText(suma);
+                    campoIp.setText(ip);
+                    System.out.println("La suma es: " + suma);
+                    String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
+                    PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+                    System.out.println("sending ip");
+                    preparedStmt.setString (1, ip);
+                    preparedStmt.setString (2, hour);
+                    preparedStmt.setInt(3, Integer.parseInt(suma));
+                    preparedStmt.execute(); //ejecuta comando sql
                 
-                System.out.println("La suma es: " + suma);
-                String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
-                PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
-                System.out.println("sending ip");
-                preparedStmt.setString (1, ip);
-                preparedStmt.setString (2, hour);
-                preparedStmt.setInt(3, suma);
-                preparedStmt.execute(); //ejecuta comando sql
-                //llenaTabla();
-              
-            }
-            bos.close();
+                }
+        byte[] byteArray;
+            //bos.close();
             dis.close();
             //conn.close();
             }
