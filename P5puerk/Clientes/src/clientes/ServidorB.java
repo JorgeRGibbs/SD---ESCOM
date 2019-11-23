@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 //import hilo.Hilito;//
 //import static servidor.Interfaz.cuatro;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 //import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Connection;
@@ -24,6 +28,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.DriverManager;
@@ -113,9 +119,33 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             i++;
 
         }
+        //System.out.println(hora1B.getText());
         hilo.valor = true;
     }
 
+    void sendTime() throws IOException{
+        try {
+            int port = 2000;
+            System.out.println(hora1B.getText());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            String dateInString = hora1B.getText();
+            Date date = sdf.parse(dateInString);	
+            System.out.println(dateInString);
+            System.out.println("Date - Time in milliseconds : " + date.getTime());
+            Long mil_sec = date.getTime();
+            Socket socket = new Socket("localhost",port);
+            OutputStream os = socket.getOutputStream();
+            DataOutputStream dos = new DataOutputStream(os);
+            dos.writeUTF(mil_sec.toString());
+            dos.flush();
+            dos.close();
+            socket.close();
+            
+        }catch(ParseException e){
+        System.out.println(e);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -271,7 +301,12 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            sendTime();
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         editar(dos,hora1B);
     }//GEN-LAST:event_jButton3ActionPerformed
                            
@@ -438,7 +473,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             //Servidor Socket en el puerto 5000
             server = new ServerSocket(this_server);
             while (true) {
-                //Aceptar conexiones
+                //Aceptar conexio0nes
                 connection = server.accept();
                 //Buffer de 1024 bytes
                 receivedData = new byte[1024];
