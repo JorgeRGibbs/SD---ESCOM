@@ -126,6 +126,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         campoHora = new javax.swing.JTextField();
         campoSuma = new javax.swing.JTextField();
         campoIp = new javax.swing.JTextField();
@@ -134,8 +135,12 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         jLabel3 = new javax.swing.JLabel();
         hora1B = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,6 +176,20 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
 
         jLabel4.setText("Hora Servidor: ");
 
+        jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Guardar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,7 +211,12 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(hora1B, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(hora1B, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -211,7 +235,9 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hora1B, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addGap(21, 21, 21))
         );
 
@@ -233,6 +259,21 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     private void hora1BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora1BActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hora1BActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        //dos.valor = false;
+        hora1B.setEnabled(true);
+        dos.valor = false;
+        //editar(dos,hora1B);
+        //hora1B.setEnabled(true);
+        //hora1B.setEnabled(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        editar(dos,hora1B);
+    }//GEN-LAST:event_jButton3ActionPerformed
                            
     public static void editar(Hilo hilo, JTextField hora1B, String time) {
 
@@ -363,6 +404,9 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField campoIp;
     private javax.swing.JTextField campoSuma;
     private javax.swing.JTextField hora1B;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -379,6 +423,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         int this_server, next_server;
         this_server = 5800;
         next_server = 5801;
+        
         DataOutputStream output;
         BufferedInputStream bis;
         BufferedOutputStream bos;
@@ -454,7 +499,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                         try {
                         //InetAddress ip = InetAddress.getLocalHost();
                             //final File s_localFile = new File( this.fileName );
-                            Socket client = new Socket("10.100.74.237", next_server); //servidor
+                            Socket client = new Socket("localhost", next_server); //servidor
                             //bis = new BufferedInputStream(new FileInputStream(localFile));
                             //bos = new BufferedOutputStream(client.getOutputStream());
                             DataOutputStream dos = new DataOutputStream(client.getOutputStream());

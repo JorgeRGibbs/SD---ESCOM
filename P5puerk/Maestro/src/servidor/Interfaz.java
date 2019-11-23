@@ -27,7 +27,7 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() throws RemoteException {
         initComponents();
         this.setTitle("Reloj");
-
+ 
         hora1.setEnabled(false);
         hora2.setEnabled(false);
         hora3.setEnabled(false);

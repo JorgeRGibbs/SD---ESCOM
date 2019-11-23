@@ -179,6 +179,8 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         hora1B1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,6 +210,26 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
 
         jLabel4.setText("Hora Servidor: ");
 
+        hora1B1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hora1B1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,8 +253,12 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hora1B1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(hora1B1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton2)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +276,9 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hora1B1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -268,6 +296,21 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
     private void campoIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoIpActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        hora1B1.setEnabled(true);
+        dos.valor = false;
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void hora1B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora1B1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hora1B1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        editar(dos,hora1B1);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     public static Connection getconn() {
         if (conn==null) {  
@@ -390,6 +433,8 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
     private javax.swing.JTextField campoIp;
     private javax.swing.JTextField campoSuma;
     private javax.swing.JTextField hora1B1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
