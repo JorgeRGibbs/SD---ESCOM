@@ -1,4 +1,7 @@
 package servidor;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import servidor.Hilo;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
@@ -15,6 +18,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class ServidorTiempo extends javax.swing.JFrame {
@@ -256,11 +263,9 @@ public class ServidorTiempo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hora3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(segundosV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(193, 285, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Enviar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Enviar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -474,7 +479,6 @@ public class ServidorTiempo extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException, AlreadyBoundException {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -482,7 +486,71 @@ public class ServidorTiempo extends javax.swing.JFrame {
                 } catch (RemoteException ex) {
                     Logger.getLogger(ServidorTiempo.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                ServerSocket server;
+                Socket connection;
+                int this_server = 5802;
+                //int server2 = 5803;
+                DataOutputStream output;
+                BufferedInputStream bis;
+                BufferedOutputStream bos;
+                Long serv_time;
+                String str_milis;
+                //Long serv2_time;
+                //byte[] = recievedData;
+                int in; 
+                String flag;
+
+                try{
+                    //Servidor Socket en el puerto 5000
+                    server = new ServerSocket( this_server );
+                    int res_port;
+                    while ( true ) {
+                        //Aceptar conexiones
+                        connection = server.accept();
+                        //Buffer de 1024 bytes
+                        //receivedData = new byte[1024];
+                        bis = new BufferedInputStream(connection.getInputStream());
+                        DataInputStream dis=new DataInputStream(connection.getInputStream());
+                        //file = "Hola.txt";
+                        //file = dis.readUTF();
+                        flag = dis.readUTF();
+                        if(flag == "1"){
+                            res_port = 5800;
+                        }else{
+                            res_port = 5801;
+                        }
+                        str_milis = dis.readUTF();
+                        serv_time = Long.parseLong(str_milis);
+                        String time_s_time = hora1.getText();
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                        String dateInString = hora1.getText();
+                        Date date = sdf.parse(dateInString);	
+                        System.out.println(dateInString);
+                        System.out.println("Date - Time in milliseconds : " + date.getTime());
+                        Long t_server = date.getTime();
+                        
+                        Socket socket = new Socket("localhost", res_port);
+                        System.out.println("Connected!");
+                        OutputStream outputStream = socket.getOutputStream();
+                        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+                        System.out.println("Sending string to the ServerSocket");
+                        dataOutputStream.writeUTF("t_server");
+                        dataOutputStream.writeUTF(t_server.toString());
+                        dataOutputStream.flush(); 
+                        dataOutputStream.close(); 
+                        System.out.println("Closing socket and terminating program.");
+                        socket.close();
+                        connection.close();
+                        //t_client = t_server + ( - serv_time)/2
+
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ServidorTiempo.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(ServidorTiempo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            
         });
 
        /* Naming.rebind("rhilito1", dos);
@@ -503,7 +571,7 @@ public class ServidorTiempo extends javax.swing.JFrame {
     private javax.swing.ButtonGroup BtnGrpEditar;
     private javax.swing.JButton BtnModificar;
     private javax.swing.JButton Enviar;
-    private javax.swing.JTextField hora1;
+    private static javax.swing.JTextField hora1;
     private javax.swing.JTextField hora2;
     private javax.swing.JTextField hora3;
     private javax.swing.JButton jButton1;

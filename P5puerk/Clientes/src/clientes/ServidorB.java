@@ -125,18 +125,21 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
 
     void sendTime() throws IOException{
         try {
-            int port = 2000;
+            int time_port = 5802;
+            int s_time_port = 5800;
+            ServerSocket serverSocket = new ServerSocket(s_time_port);
             System.out.println(hora1B.getText());
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
             String dateInString = hora1B.getText();
             Date date = sdf.parse(dateInString);	
             System.out.println(dateInString);
             System.out.println("Date - Time in milliseconds : " + date.getTime());
-            Long mil_sec = date.getTime();
+            Long t0 = date.getTime();
             Socket socket = new Socket("localhost",port);
             OutputStream os = socket.getOutputStream();
             DataOutputStream dos = new DataOutputStream(os);
-            dos.writeUTF(mil_sec.toString());
+            dos.writeUTF("1");
+            dos.writeUTF(t0.toString());
             dos.flush();
             dos.close();
             socket.close();
