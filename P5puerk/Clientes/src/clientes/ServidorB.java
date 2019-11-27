@@ -28,7 +28,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -126,23 +128,51 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     void sendTime() throws IOException{
         try {
             int time_port = 5802;
-            int s_time_port = 5800;
-            ServerSocket serverSocket = new ServerSocket(s_time_port);
+            int this_client = 5803;
+            ServerSocket serverSocket = new ServerSocket(this_client);
             System.out.println(hora1B.getText());
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            
             String dateInString = hora1B.getText();
             Date date = sdf.parse(dateInString);	
             System.out.println(dateInString);
-            System.out.println("Date - Time in milliseconds : " + date.getTime());
+            System.out.println("T0 - Time in milliseconds : " + date.getTime());
             Long t0 = date.getTime();
-            Socket socket = new Socket("localhost",port);
+            
+            Socket socket = new Socket("localhost",time_port);
             OutputStream os = socket.getOutputStream();
             DataOutputStream dos = new DataOutputStream(os);
-            dos.writeUTF("1");
-            dos.writeUTF(t0.toString());
+            dos.writeUTF("T0"); //Mandar un flag para indicar la peticion de la hora
+            //dos.writeUTF(t0.toString());
+            //t0.toString();
+            System.out.println(t0.toString());
+            socket = serverSocket.accept();
+            InputStream inputStream = socket.getInputStream();
+            // create a DataInputStream so we can read data from it.
+            DataInputStream dataInputStream = new DataInputStream(inputStream);
+            //InetAddress ip = InetAddress.getLocalHost();
+            //Socket client = new Socket("localhost", this_server); //servidora
+            //dos=new DataOutputStream(client.getOutputStream());
+            // read the message from the socket
+            String Ts = dataInputStream.readUTF(); //Leer la hora Tserver (en miliseg.)
+            dateInString = hora1B.getText();
+            date = sdf.parse(dateInString);	
+            System.out.println(dateInString);
+            System.out.println("T1 - Time in milliseconds : " + date.getTime());
+            Long t1 = date.getTime();
+            System.out.println(t1.toString());
+            
+            Long Latency = t1-t0; //Latencia
+            Long Error = Latency/2;
+            Long Tc = Long.parseLong(Ts) + (Error);
+            System.out.println("Tc: "+Tc.toString());
+            System.out.println("Error: "+Error.toString());
+            System.out.println("Latency: "+Latency.toString());
+            //String request = dataInputStream.readUTF();
             dos.flush();
             dos.close();
             socket.close();
+            serverSocket.close();
             
         }catch(ParseException e){
         System.out.println(e);
@@ -170,6 +200,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -223,6 +254,13 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        jButton4.setText("Pedir hora");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,11 +284,13 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(hora1B, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,12 +305,13 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                     .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hora1B, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addGap(21, 21, 21))
         );
 
@@ -304,14 +345,23 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        /*try {
+            // TODO add your handling code here:
+            sendTime();
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorB.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        editar(dos,hora1B);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             // TODO add your handling code here:
             sendTime();
         } catch (IOException ex) {
             Logger.getLogger(ServidorB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        editar(dos,hora1B);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
                            
     public static void editar(Hilo hilo, JTextField hora1B, String time) {
 
@@ -445,6 +495,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
