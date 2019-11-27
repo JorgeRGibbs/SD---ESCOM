@@ -127,8 +127,11 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
 
     void sendTime() throws IOException{
         try {
+            String name = "ServerB";
+            InetAddress ip = InetAddress.getLocalHost();
             int time_port = 5802;
             int this_client = 5803;
+            int player_port = 8889;
             ServerSocket serverSocket = new ServerSocket(this_client);
             System.out.println(hora1B.getText());
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
@@ -143,6 +146,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             OutputStream os = socket.getOutputStream();
             DataOutputStream dos = new DataOutputStream(os);
             dos.writeUTF("T0"); //Mandar un flag para indicar la peticion de la hora
+            dos.writeUTF(dateInString); //Mandar t0, hora actual del reloj al servidor
             //dos.writeUTF(t0.toString());
             //t0.toString();
             System.out.println(t0.toString());
@@ -165,6 +169,12 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             Long Latency = t1-t0; //Latencia
             Long Error = Latency/2;
             Long Tc = Long.parseLong(Ts) + (Error);
+            dos.writeUTF(Latency.toString()); //Mandar Latencia
+            dos.writeUTF(Error.toString()); //MAndar Error
+            dos.writeUTF(Tc.toString());  //Mandar tiempo de cliente
+            dos.writeUTF(ip.getHostAddress());
+            dos.writeUTF(name);
+            
             System.out.println("Tc: "+Tc.toString());
             System.out.println("Error: "+Error.toString());
             System.out.println("Latency: "+Latency.toString());
@@ -174,6 +184,11 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             socket.close();
             serverSocket.close();
             
+            socket = new Socket("localhost",player_port);
+            os = socket.getOutputStream();
+            dos = new DataOutputStream(os);
+            dos.writeUTF(Tc.toString());
+            socket.close();
         }catch(ParseException e){
         System.out.println(e);
         }

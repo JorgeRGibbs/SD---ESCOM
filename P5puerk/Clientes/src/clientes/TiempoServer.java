@@ -9,11 +9,17 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Calendar;
 import javax.swing.JTextField;
 //import hilo.Hilito;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import com.mysql.jdbc.Connection;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -26,15 +32,41 @@ import java.util.logging.Logger;
 
 public class TiempoServer implements Runnable {
     static int port;
+    private static Connection conn;
     
      public static void setPort(int port) {
         TiempoServer.port = port;
     }
+     
+     public static Connection getconn() {
+        if (conn == null) {
+
+            try {
+                String url = new String();
+                String user = new String();
+                String password = new String();
+                url = "jdbc:mysql://localhost:3306/coordinador1";
+                user = "root";
+                password = "root";
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                System.out.println("yes");
+                conn = (Connection) DriverManager.getConnection(url, user, password);
+                System.out.println("Alles ist gut");
+                //JOptionPane.showMessageDialog(null,"Connection Successful");
+            } catch (SQLException e) {
+                System.out.println(e);
+                //JOptionPane.showMessageDialog(null, "Connection Failed" +e);
+            }
+        }
+        return conn;
+    }
+     
     
     @Override
     public void run(){
         // don't need to specify a hostname, it will be the current machine
         //int port = (int)(Math.random() * 10000 + 1200);
+        TiempoServer.getconn(); //obtiene conexion a la base de datos 
         int this_server = 5802;
         int client_addr = 5803;
         while(true){
@@ -59,6 +91,7 @@ public class TiempoServer implements Runnable {
         String request = dataInputStream.readUTF();
         System.out.println("Client sent: "+request+".");
         if(request.equals("T0")){
+            String t0 = dataInputStream.readUTF();
             String str_time = Tiempo.hora1.getText();
             //Long serv_time = Long.parseLong(str_time);
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
@@ -71,6 +104,29 @@ public class TiempoServer implements Runnable {
             Long mil_sec = date.getTime();
             //dos.writeUTF("TS");
             dos.writeUTF(mil_sec.toString());
+            String Latency = dataInputStream.readUTF();
+            String Error = dataInputStream.readUTF();
+            String Tc = dataInputStream.readUTF();
+            String sent_ip = dataInputStream.readUTF();
+            String name = dataInputStream.readUTF();
+            String query = " INSERT INTO HoraCentral (HPrev, HRef)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+            System.out.println("sending ip");
+            preparedStmt.setString(1, str_time);
+            preparedStmt.setString(2, str_time);
+            preparedStmt.execute(); //ejecuta comando sql
+            query = " INSERT INTO HoraEquipos (hEquipo,aEquipo,ralentizar)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+            preparedStmt.setString(1, t0);
+            preparedStmt.setString(2, str_time); //no c que va aqui 
+            preparedStmt.setString(3, str_time);
+            preparedStmt.execute(); //ejecuta comando sql*/
+            query = " INSERT INTO Equipos (IP,Nombre,Latencia)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+            preparedStmt.setString(1, sent_ip);
+            preparedStmt.setString(2, name); //no c que va aqui 
+            preparedStmt.setString(3, Latency);
+            preparedStmt.execute(); //ejecuta comando sql*/
         }
         //editar(uno,hora1,time);
         //char stringA[] = time.toCharArray();
@@ -96,6 +152,8 @@ public class TiempoServer implements Runnable {
         } catch (IOException ex) {
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
+                Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
