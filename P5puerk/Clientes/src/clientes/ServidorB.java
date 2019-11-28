@@ -169,6 +169,13 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             Long Latency = t1-t0; //Latencia
             Long Error = Latency/2;
             Long Tc = Long.parseLong(Ts) + (Error);
+            
+            long s = Tc % 60;
+            long m = (Tc / 60) % 60;
+            long h = (Tc / (60 * 60)) % 24;
+            String hora = String.format("%d:%02d:%02d", h,m,s);
+            hora1B.setText(hora);
+            
             dos.writeUTF(Latency.toString()); //Mandar Latencia
             dos.writeUTF(Error.toString()); //MAndar Error
             dos.writeUTF(Tc.toString());  //Mandar tiempo de cliente

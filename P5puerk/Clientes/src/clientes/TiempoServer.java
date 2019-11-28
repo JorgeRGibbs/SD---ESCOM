@@ -45,7 +45,7 @@ public class TiempoServer implements Runnable {
                 String url = new String();
                 String user = new String();
                 String password = new String();
-                url = "jdbc:mysql://localhost:3306/coordinador1";
+                url = "jdbc:mysql://localhost:3306/clk";
                 user = "root";
                 password = "root";
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -85,7 +85,8 @@ public class TiempoServer implements Runnable {
         BufferedInputStream bis;
         BufferedOutputStream bos;
         InetAddress ip = InetAddress.getLocalHost();
-        Socket client = new Socket("localhost", client_addr); //servidor
+        System.out.println(socket.getLocalPort());
+        Socket client = new Socket("localhost", /*socket.getLocalPort()*/5803); //servidor
         DataOutputStream dos=new DataOutputStream(client.getOutputStream());
         // read the message from the socket
         String request = dataInputStream.readUTF();
@@ -109,23 +110,25 @@ public class TiempoServer implements Runnable {
             String Tc = dataInputStream.readUTF();
             String sent_ip = dataInputStream.readUTF();
             String name = dataInputStream.readUTF();
-            String query = " INSERT INTO HoraCentral (HPrev, HRef)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            /*String query = " INSERT INTO HoraCentral (HPrev, HRef)" + " values (?, ?)"; //inserta valores recibidos en base de datos
             PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
             System.out.println("sending ip");
             preparedStmt.setString(1, str_time);
             preparedStmt.setString(2, str_time);
             preparedStmt.execute(); //ejecuta comando sql
-            query = " INSERT INTO HoraEquipos (hEquipo,aEquipo,ralentizar)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            query = " INSERT INTO HoraEquipos (hEquipo,aEquipo,ralentizar,Equipos_ID)" + " values (?, ?, ?, ?)"; //inserta valores recibidos en base de datos
             preparedStmt = (PreparedStatement) conn.prepareStatement(query);
             preparedStmt.setString(1, t0);
             preparedStmt.setString(2, str_time); //no c que va aqui 
             preparedStmt.setString(3, str_time);
-            preparedStmt.execute(); //ejecuta comando sql*/
-            query = " INSERT INTO Equipos (IP,Nombre,Latencia)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            preparedStmt.setString(4, "1");
+            preparedStmt.execute(); //ejecuta comando sql
+            query = " INSERT INTO Equipos (IP,Nombre,Latencia,HoraEquipos_ID)" + " values (?, ?, ?,?)"; //inserta valores recibidos en base de datos
             preparedStmt = (PreparedStatement) conn.prepareStatement(query);
             preparedStmt.setString(1, sent_ip);
             preparedStmt.setString(2, name); //no c que va aqui 
             preparedStmt.setString(3, Latency);
+            preparedStmt.setString(4, "12");
             preparedStmt.execute(); //ejecuta comando sql*/
         }
         //editar(uno,hora1,time);
@@ -153,9 +156,9 @@ public class TiempoServer implements Runnable {
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } /*catch (SQLException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
     }
         }
     
