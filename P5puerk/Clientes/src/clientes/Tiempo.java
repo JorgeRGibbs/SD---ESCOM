@@ -111,7 +111,7 @@ public class Tiempo extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Century Schoolbook", 2, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 0, 204));
-        jLabel7.setText("PRÁCTICA 3");
+        jLabel7.setText("SERVIDOR DE TIEMPO");
 
         jButton2.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 0, 102));

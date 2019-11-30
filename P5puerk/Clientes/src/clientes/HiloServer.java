@@ -43,6 +43,7 @@ public class HiloServer implements Runnable {
         DataInputStream dataInputStream = new DataInputStream(inputStream);
         // read the message from the socket
         String time = dataInputStream.readUTF();
+        System.out.println(time);
         //editar(uno,hora1,time);
         char stringA[] = time.toCharArray();
         Hilo.hora = Integer.parseInt(stringA[0]+""+stringA[1]);
@@ -62,6 +63,9 @@ public class HiloServer implements Runnable {
         System.out.println("Closing sockets.");
         ss.close();
         socket.close();
+        String hora = time.substring(0,8);
+        System.out.println(hora);
+        Jugador1.hora1.setText(hora);
         //uno.run();
         //return time;
         } catch (IOException ex) {

@@ -110,26 +110,29 @@ public class TiempoServer implements Runnable {
             String Tc = dataInputStream.readUTF();
             String sent_ip = dataInputStream.readUTF();
             String name = dataInputStream.readUTF();
-            /*String query = " INSERT INTO HoraCentral (HPrev, HRef)" + " values (?, ?)"; //inserta valores recibidos en base de datos
+            String query = " INSERT INTO HoraCentral (HPrev, HRef)" + " values (?, ?)"; //inserta valores recibidos en base de datos
             PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
             System.out.println("sending ip");
-            preparedStmt.setString(1, str_time);
+            preparedStmt.setString(1, t0);
             preparedStmt.setString(2, str_time);
             preparedStmt.execute(); //ejecuta comando sql
-            query = " INSERT INTO HoraEquipos (hEquipo,aEquipo,ralentizar,Equipos_ID)" + " values (?, ?, ?, ?)"; //inserta valores recibidos en base de datos
-            preparedStmt = (PreparedStatement) conn.prepareStatement(query);
-            preparedStmt.setString(1, t0);
-            preparedStmt.setString(2, str_time); //no c que va aqui 
-            preparedStmt.setString(3, str_time);
-            preparedStmt.setString(4, "1");
-            preparedStmt.execute(); //ejecuta comando sql
-            query = " INSERT INTO Equipos (IP,Nombre,Latencia,HoraEquipos_ID)" + " values (?, ?, ?,?)"; //inserta valores recibidos en base de datos
+            System.out.println("Inserted HoraCentral");
+            query = " INSERT INTO Equipos (IP,Nombre,Latencia)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
             preparedStmt = (PreparedStatement) conn.prepareStatement(query);
             preparedStmt.setString(1, sent_ip);
             preparedStmt.setString(2, name); //no c que va aqui 
             preparedStmt.setString(3, Latency);
-            preparedStmt.setString(4, "12");
+            //preparedStmt.setString(4, "3");
             preparedStmt.execute(); //ejecuta comando sql*/
+            System.out.println("Inserted Equipos");
+            query = " INSERT INTO HoraEquipos (hEquipo,aEquipo,ralentizar)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
+            preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+            preparedStmt.setString(1, t0);
+            preparedStmt.setString(2, str_time); //no c que va aqui 
+            preparedStmt.setString(3, str_time);
+            //preparedStmt.setString(4, "3");
+            preparedStmt.execute(); //ejecuta comando sql   
+            System.out.println("Inserted HoraEquipos");
         }
         //editar(uno,hora1,time);
         //char stringA[] = time.toCharArray();
@@ -156,9 +159,9 @@ public class TiempoServer implements Runnable {
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
-            } /*catch (SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
     }
         }
     

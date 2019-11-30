@@ -173,7 +173,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             long s = Tc % 60;
             long m = (Tc / 60) % 60;
             long h = (Tc / (60 * 60)) % 24;
-            String hora = String.format("%d:%02d:%02d", h,m,s);
+            String hora = String.format("%02d:%02d:%02d", h,m,s);
             hora1B.setText(hora);
             
             dos.writeUTF(Latency.toString()); //Mandar Latencia
@@ -190,12 +190,16 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             dos.close();
             socket.close();
             serverSocket.close();
-            
-            socket = new Socket("localhost",player_port);
-            os = socket.getOutputStream();
-            dos = new DataOutputStream(os);
-            dos.writeUTF(Tc.toString());
-            socket.close();
+            try{
+                socket = new Socket("localhost",player_port);
+                os = socket.getOutputStream();
+                dos = new DataOutputStream(os);
+                System.out.println(hora);
+                dos.writeUTF(hora+"1000");
+                socket.close();
+            }catch(Exception e){
+                System.out.println("Player unavailable");
+            }
         }catch(ParseException e){
         System.out.println(e);
         }
