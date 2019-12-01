@@ -41,8 +41,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.util.Duration.millis;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //import static practica1.CoordinadorServer.model;
@@ -81,6 +83,28 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         Thread t2 = new Thread(listen);
         t1.start();
         t2.start();
+    }
+    
+    public static String msToString(long ms) {
+        long totalSecs = ms/1000;
+        long hours = (totalSecs / 3600);
+        long mins = (totalSecs / 60) % 60;
+        long secs = totalSecs % 60;
+        String minsString = (mins == 0)
+            ? "00"
+            : ((mins < 10)
+               ? "0" + mins
+               : "" + mins);
+        String secsString = (secs == 0)
+            ? "00"
+            : ((secs < 10)
+               ? "0" + secs
+               : "" + secs);
+        if (hours > 0)
+            return hours + ":" + minsString + ":" + secsString;
+        else if (mins > 0)
+            return mins + ":" + secsString;
+        else return ":" + secsString;
     }
 
     void editar(Hilo hilo, JTextField hora1B) {
@@ -126,82 +150,90 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
     }
 
     void sendTime() throws IOException{
-        try {
-            String name = "ServerB";
-            InetAddress ip = InetAddress.getLocalHost();
-            int time_port = 5802;
-            int this_client = 5803;
-            int player_port = 8889;
-            ServerSocket serverSocket = new ServerSocket(this_client);
-            System.out.println(hora1B.getText());
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-            
-            String dateInString = hora1B.getText();
-            Date date = sdf.parse(dateInString);	
-            System.out.println(dateInString);
-            System.out.println("T0 - Time in milliseconds : " + date.getTime());
-            Long t0 = date.getTime();
-            
-            Socket socket = new Socket("localhost",time_port);
-            OutputStream os = socket.getOutputStream();
-            DataOutputStream dos = new DataOutputStream(os);
-            dos.writeUTF("T0"); //Mandar un flag para indicar la peticion de la hora
-            dos.writeUTF(dateInString); //Mandar t0, hora actual del reloj al servidor
-            //dos.writeUTF(t0.toString());
-            //t0.toString();
-            System.out.println(t0.toString());
-            socket = serverSocket.accept();
-            InputStream inputStream = socket.getInputStream();
-            // create a DataInputStream so we can read data from it.
-            DataInputStream dataInputStream = new DataInputStream(inputStream);
-            //InetAddress ip = InetAddress.getLocalHost();
-            //Socket client = new Socket("localhost", this_server); //servidora
-            //dos=new DataOutputStream(client.getOutputStream());
-            // read the message from the socket
-            String Ts = dataInputStream.readUTF(); //Leer la hora Tserver (en miliseg.)
-            dateInString = hora1B.getText();
-            date = sdf.parse(dateInString);	
-            System.out.println(dateInString);
-            System.out.println("T1 - Time in milliseconds : " + date.getTime());
-            Long t1 = date.getTime();
-            System.out.println(t1.toString());
-            
-            Long Latency = t1-t0; //Latencia
-            Long Error = Latency/2;
-            Long Tc = Long.parseLong(Ts) + (Error);
-            
-            long s = Tc % 60;
-            long m = (Tc / 60) % 60;
-            long h = (Tc / (60 * 60)) % 24;
-            String hora = String.format("%02d:%02d:%02d", h,m,s);
-            hora1B.setText(hora);
-            
-            dos.writeUTF(Latency.toString()); //Mandar Latencia
-            dos.writeUTF(Error.toString()); //MAndar Error
-            dos.writeUTF(Tc.toString());  //Mandar tiempo de cliente
-            dos.writeUTF(ip.getHostAddress());
-            dos.writeUTF(name);
-            
-            System.out.println("Tc: "+Tc.toString());
-            System.out.println("Error: "+Error.toString());
-            System.out.println("Latency: "+Latency.toString());
-            //String request = dataInputStream.readUTF();
-            dos.flush();
-            dos.close();
+        String name = "ServerB";
+        InetAddress ip = InetAddress.getLocalHost();
+        int time_port = 5802;
+        int this_client = 5803;
+        int player_port = 8889;
+        ServerSocket serverSocket = new ServerSocket(this_client);
+        System.out.println(hora1B.getText());
+        //SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        String t0 = hora1B.getText();
+        //Date date = sdf.parse(dateInString);
+        System.out.println("T0 -"+ t0);
+        //System.out.println("T0 - Time in milliseconds : " + date.getTime());
+        //Long t0 = date.getTime();
+        Socket socket = new Socket("localhost",time_port);
+        OutputStream os = socket.getOutputStream();
+        DataOutputStream dos = new DataOutputStream(os);
+        dos.writeUTF("T0"); //Mandar un flag para indicar la peticion de la hora
+        dos.writeUTF(t0); //Mandar t0, hora actual del reloj al servidor
+        //dos.writeUTF(t0.toString());
+        //t0.toString();
+        //System.out.println(t0.toString());
+        socket = serverSocket.accept();
+        InputStream inputStream = socket.getInputStream();
+        // create a DataInputStream so we can read data from it.
+        DataInputStream dataInputStream = new DataInputStream(inputStream);
+        //InetAddress ip = InetAddress.getLocalHost();
+        //Socket client = new Socket("localhost", this_server); //servidora
+        //dos=new DataOutputStream(client.getOutputStream());
+        // read the message from the socket
+        String Ts = dataInputStream.readUTF(); //Leer la hora Tserver (en miliseg.)
+        System.out.println("Ts: "+Ts);
+        String t1 = hora1B.getText();
+        System.out.println("T1 -"+ t1);
+        char[] ts_array = Ts.toCharArray();
+        System.out.println(ts_array);
+        for (int i = 0; i < 8; i++) {
+            System.out.println(ts_array[i]);
+        }
+        //String aux = String.copyValueOf(ts_array);
+        int Ts_s = (Integer.parseInt(Ts.substring(6)));
+        System.out.println("Ts seconds:"+Ts_s);
+        //char[] array = t0.toCharArray();
+        int t0_s = (Integer.parseInt(t0.substring(6)));
+        //char [] array1= t1.toCharArray();
+        int t1_s = (Integer.parseInt(t1.substring(6)));
+        int Latency = t1_s - t0_s;
+        int Error = Latency/2;
+        int Tc_s = Error + Ts_s;
+        String Tc = Ts.subSequence(0,6)+String.format("%02d",Tc_s);//+Integer.toString(Tc_s);
+        String hora  = Ts.subSequence(0,2)+"";
+        String minuto = Ts.subSequence(3,5)+"";
+        String segundo = Ts.subSequence(6,8)+"";
+        System.out.println(hora+":"+minuto+":"+segundo);
+        Hilo.hora = Integer.parseInt(hora);
+        Hilo.minuto = Integer.parseInt(minuto);
+        Hilo.segundo = Integer.parseInt(segundo);
+        //ts_array[0]+ts_array[1]+ts_array[2]+ts_array[3]+ts_array[4]+ts_array[5]+Integer.toString(Tc_s);
+        System.out.println("Tc: "+Tc);
+        System.out.println("Error  (s): "+Integer.toString(Error));
+        System.out.println("Latency (s) : "+Integer.toString(Latency));
+        //date = sdf.parse(dateInString);
+        //System.out.println(dateInString);
+        // System.out.println("T1 -"+ t1);
+        //Long t1 = date.getTime();
+        //System.out.println(t1.toString());
+        dos.writeUTF(Integer.toString(Latency)); //Mandar Latencia
+        dos.writeUTF(Integer.toString(Error)); //Mandar Error
+        dos.writeUTF(Tc);  //Mandar tiempo de cliente
+        dos.writeUTF(ip.getHostAddress());
+        dos.writeUTF(name);
+        //String request = dataInputStream.readUTF();
+        dos.flush();
+        dos.close();
+        socket.close();
+        serverSocket.close();
+        try{
+            socket = new Socket("localhost",player_port);
+            os = socket.getOutputStream();
+            dos = new DataOutputStream(os);
+            System.out.println(Tc);
+            dos.writeUTF(Tc+"1000");
             socket.close();
-            serverSocket.close();
-            try{
-                socket = new Socket("localhost",player_port);
-                os = socket.getOutputStream();
-                dos = new DataOutputStream(os);
-                System.out.println(hora);
-                dos.writeUTF(hora+"1000");
-                socket.close();
-            }catch(Exception e){
-                System.out.println("Player unavailable");
-            }
-        }catch(ParseException e){
-        System.out.println(e);
+        }catch(Exception e){
+            System.out.println("Player unavailable");
         }
         
     }

@@ -95,16 +95,17 @@ public class TiempoServer implements Runnable {
             String t0 = dataInputStream.readUTF();
             String str_time = Tiempo.hora1.getText();
             //Long serv_time = Long.parseLong(str_time);
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            //SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
             System.out.println("simon");
-            String dateInString = str_time;
+          //  String dateInString = str_time;
             System.out.println("Nel");
-            Date date = sdf.parse(dateInString);
-            System.out.println(dateInString);
-            System.out.println("Date - Time in milliseconds : " + date.getTime());
-            Long mil_sec = date.getTime();
+            //Date date = sdf.parse(dateInString);
+           // System.out.println(dateInString);
+            //System.out.println("Date - Time in milliseconds : " + date.getTime());
+            //Long mil_sec = date.getTime();
             //dos.writeUTF("TS");
-            dos.writeUTF(mil_sec.toString());
+            System.out.println("Sending time:"+str_time);
+            dos.writeUTF(str_time);
             String Latency = dataInputStream.readUTF();
             String Error = dataInputStream.readUTF();
             String Tc = dataInputStream.readUTF();
@@ -157,8 +158,6 @@ public class TiempoServer implements Runnable {
         //return time;
         } catch (IOException ex) {
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(TiempoServer.class.getName()).log(Level.SEVERE, null, ex);
             }

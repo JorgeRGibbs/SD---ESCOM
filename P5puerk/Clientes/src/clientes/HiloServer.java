@@ -53,7 +53,7 @@ public class HiloServer implements Runnable {
         String vel ;
         vel = time.substring(8,time.length());
         System.out.println(vel);
-        if (vel == "") {
+        if (vel.equals("")) {
             vel = "1000";
         }
         Hilo.velocidad = Integer.parseInt(vel);
