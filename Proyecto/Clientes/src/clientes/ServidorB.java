@@ -196,7 +196,7 @@ static DefaultTableModel model;
     }
     
     public static int readFile_suma(String file_path) throws IOException{
-        int sum = 0;
+        /*int sum = 0;
         File file = new File(file_path);
   
         BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -215,7 +215,105 @@ static DefaultTableModel model;
         }
         
           
-        return sum;
+        return sum;*/
+        
+        String cadena = "";
+        //String archivo = "C:/Users/gerar/Documents/GitHub/SD---ESCOM/Proyecto/EvaluarCadena/archivo.txt";
+        Scanner scan = new Scanner(new File(file_path));
+        while (scan.hasNextLine())
+            cadena += scan.nextLine();
+        
+        int tam = cadena.length();
+        int resultado = 0;
+        char ce;
+    
+        for(int i=0; i<tam; i++){
+            ce = cadena.charAt(i);
+            switch (ce){
+                case 'a':
+                    resultado += 1;
+                    break;
+                case 'e':
+                    resultado += 1;
+                    break;
+                case 'i':
+                    resultado += 1;
+                    break;
+                case 'o':
+                    resultado += 1;
+                    break;
+                case 'u':
+                    resultado += 1;
+                    break;
+                case 'A':
+                    resultado += 1;
+                    break;
+                case 'E':
+                    resultado += 1;
+                    break;
+                case 'I':
+                    resultado += 1;
+                    break;
+                case 'O':
+                    resultado += 1;
+                    break;
+                case 'U':
+                    resultado += 1;
+                    break;
+                case '1':
+                    resultado += 1;
+                    break;
+                case '2':
+                    resultado += 1;
+                    break;
+                case '3':
+                    resultado += 1;
+                    break;
+                case '4':
+                    resultado += 1;
+                    break;
+                case '5':
+                    resultado += 1;
+                    break;
+                case '.':
+                    resultado += 1;
+                    break;
+                case ',':
+                    resultado += 1;
+                    break;
+                case ';':
+                    resultado += 1;
+                    break;
+                case ':':
+                    resultado += 1;
+                    break;
+                case '\'':
+                    resultado += 1;
+                    break; 
+                case '+':
+                    resultado += 1;
+                    break;
+                case '-':
+                    resultado += 1;
+                    break;
+                case '*':
+                    resultado += 1;
+                    break;
+                case '/':
+                    resultado += 1;
+                    break;
+                case '=':
+                    resultado += 1;
+                    break; 
+                default:
+                    break;
+            } 
+    }
+        
+        System.out.println("Texto del archivo : " + cadena);
+        System.out.println("Resultado: " + resultado);
+        return resultado;
+        
     } 
     /**
      * @param args the command line arguments
