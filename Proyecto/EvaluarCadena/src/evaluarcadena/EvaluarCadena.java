@@ -11,7 +11,7 @@ public class EvaluarCadena {
 
     public static void main(String[] args) throws IOException {
         String cadena = "";
-        String archivo = "C:/Users/gerar/Desktop/archivo.txt";
+        String archivo = "C:/Users/gerar/Documents/GitHub/SD---ESCOM/Proyecto/EvaluarCadenaarchivo.txt";
         Scanner scan = new Scanner(new File(archivo));
         while (scan.hasNextLine())
             cadena += scan.nextLine();
