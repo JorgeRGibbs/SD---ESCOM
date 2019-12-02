@@ -54,7 +54,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author GIBS
  */
-public class ServidorB extends javax.swing.JFrame implements Runnable {
+public class ServidorA extends javax.swing.JFrame implements Runnable {
 
     Thread h;
     private static Connection conn;
@@ -64,7 +64,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
      * Creates new form NADA
      * @throws java.rmi.RemoteException
      */
-    public ServidorB() throws RemoteException {
+    public ServidorA() throws RemoteException {
         initComponents();
         h = new Thread(this);
         h.start();
@@ -132,8 +132,8 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         String name = "ServerB";
         InetAddress ip = InetAddress.getLocalHost();
         int time_port = 5802;
-        int this_client = 5803;
-        int player_port = 8889;
+        int this_client = 5804;
+        //int player_port = 8889;
         ServerSocket serverSocket = new ServerSocket(this_client);
         System.out.println(hora1B.getText());
         //SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
@@ -204,7 +204,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         dos.close();
         socket.close();
         serverSocket.close();
-        try{
+        /*try{
             socket = new Socket("localhost",player_port);
             os = socket.getOutputStream();
             dos = new DataOutputStream(os);
@@ -213,7 +213,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             socket.close();
         }catch(Exception e){
             System.out.println("Player unavailable");
-        }
+        }*/
         
     }
     /**
@@ -396,7 +396,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
             // TODO add your handling code here:
             sendTime();
         } catch (IOException ex) {
-            Logger.getLogger(ServidorB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidorA.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
                            
@@ -455,7 +455,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
 
         String st = "";
         st = br.readLine();
-
+        System.out.println(st);
         //System.out.println(st);
         //list[i] = Integer.parseInt(st);
         //i++;
@@ -486,14 +486,30 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServidorA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -515,11 +531,11 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ServidorB().setVisible(true);
+                    new ServidorA().setVisible(true);
                 } catch (RemoteException ex) {
-                    Logger.getLogger(ServidorB.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServidorA.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                ServidorB.getconn(); //obtiene conexion a la base de datos  
+                ServidorA.getconn(); //obtiene conexion a la base de datos  
             }
         });
     }
@@ -547,8 +563,8 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
         Socket connection;
 
         int this_server, next_server;
-        this_server = 5800;
-        next_server = 5801;
+        this_server = 5801;
+        next_server = 5800;
         
         DataOutputStream output;
         BufferedInputStream bis;

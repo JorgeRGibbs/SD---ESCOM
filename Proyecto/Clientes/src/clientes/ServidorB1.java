@@ -5,9 +5,7 @@
  */
 package clientes;
 
-import static clientes.Jugador1.dos;
-import static clientes.Jugador1.listen;
-import static clientes.Jugador1.tres;
+import static clientes.Jugador1.uno;
 import java.awt.Component;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -75,91 +73,11 @@ static DefaultTableModel model;
     /**
      * Creates new form NADA
      */
-    public ServidorB1() throws RemoteException {
+    public ServidorB1() {
         initComponents();
         //recibe();
         h = new Thread(this);
         h.start();
-        
-        hora1B1.setEnabled(false);
-        
-        
-        Calendar calendario = Calendar.getInstance();
-        int hora, minuto, segundo;
-        hora = calendario.get(Calendar.HOUR_OF_DAY);
-        minuto = calendario.get(Calendar.MINUTE);
-        segundo = calendario.get(Calendar.SECOND);
-        tres = new Hilo((int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60), hora1B1);
-        Thread t1 = new Thread(tres);
-        listen = new HiloServer();
-        HiloServer.setPort(8892);
-        Thread t2 = new Thread(listen);
-        t1.start();
-        t2.start();
-    }
-void editar(Hilo hilo, JTextField hora1B1) {
-
-        hora1B1.setEnabled(false);
-        String cadena = hora1B1.getText();
-        char cadenaA[] = cadena.toCharArray();
-        int i = 0;
-        int num = 0, num2 = 0;
-        while (i < cadenaA.length) {
-            if (cadenaA[i] != ':') {
-                if (i == 0 || i == 3 || i == 6) {
-                    num = Integer.parseInt("" + cadenaA[i]) * 10;
-                }
-                if (i == 1 || i == 4 || i == 7) {
-                    num = num + Integer.parseInt("" + cadenaA[i]);
-                    if (i == 1) {
-                        if (num >= 24) {
-                            JOptionPane.showMessageDialog(null, "Error! Formato incorrecto");
-                        } else {
-                            hilo.hora = num;
-                        }
-                    } else if (i == 4) {
-                        if (num >= 60) {
-                            JOptionPane.showMessageDialog(null, "Error! Formato incorrecto");
-                        } else {
-                            hilo.minuto = num;
-                        }
-                    } else if (i == 7) {
-                        if (num >= 60) {
-                            JOptionPane.showMessageDialog(null, "Error! Formato incorrecto");
-                        } else {
-                            hilo.segundo = num;
-                        }
-                    }
-                }
-            }
-            i++;
-
-        }
-        hilo.valor = true;
-    }
-
-public static void editar(Hilo hilo, JTextField hora1B1, String time) {
-
-        System.out.println("editando");
-        hora1B1.setEnabled(false);
-        String cadena = time;
-        char cadenaA[] = cadena.toCharArray();
-        int i = 0;
-        int num = 0, num2 = 0;
-        String horaS = cadenaA[0] + "" + cadenaA[1];
-        hilo.hora = Integer.parseInt(horaS);
-        String minutoS = cadenaA[3] + "" + cadenaA[4];
-        hilo.minuto = Integer.parseInt(minutoS);
-        String segundoS = cadenaA[6] + "" + cadenaA[7];
-        hilo.segundo = Integer.parseInt(segundoS);
-        //hilo.setSegundo(Integer.parseInt(segundoS));
-        System.out.println(hilo.hora);
-        System.out.println(hilo.minuto);
-        System.out.println(hilo.segundo);
-        System.out.println("yes");
-        hilo.valor = true;
-        hora1B1.setText(time);
-
     }
 
     /**
@@ -177,10 +95,6 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        hora1B1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,57 +122,24 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
 
         jLabel3.setText("            IP");
 
-        jLabel4.setText("Hora Servidor: ");
-
-        hora1B1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hora1B1ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Editar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hora1B1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton2)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,13 +154,7 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
                     .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoSuma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hora1B1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,21 +171,6 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
     private void campoIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoIpActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        hora1B1.setEnabled(true);
-        dos.valor = false;
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void hora1B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora1B1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hora1B1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        editar(dos,hora1B1);
-    }//GEN-LAST:event_jButton2ActionPerformed
     
     public static Connection getconn() {
         if (conn==null) {  
@@ -418,11 +278,7 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new ServidorB1().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(ServidorB1.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new ServidorB1().setVisible(true);
                 ServidorB1.getconn(); //obtiene conexion a la base de datos  
             }
         });
@@ -432,13 +288,9 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
     private javax.swing.JTextField campoHora;
     private javax.swing.JTextField campoIp;
     private javax.swing.JTextField campoSuma;
-    private javax.swing.JTextField hora1B1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -448,8 +300,8 @@ public static void editar(Hilo hilo, JTextField hora1B1, String time) {
         Socket connection;
         
         int this_server,next_server;
-        this_server = 5800;
-        next_server = 5801;
+        this_server = 5801;
+        next_server = 5800;
         DataOutputStream output;
         BufferedInputStream bis;
         BufferedOutputStream bos;
