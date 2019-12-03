@@ -199,13 +199,17 @@ public class Jugador1 extends javax.swing.JFrame {
         try{
          InetAddress ip = InetAddress.getLocalHost();
          final File localFile = new File( this.fileName );
-         Socket client = new Socket("localhost", 5800); //servidor
+         Socket client = new Socket("10.100.68.200", 5800); //servidor
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
+         int cont = 0;
          Scanner scanner = new Scanner(new File(this.fileName));
                   //dos.writeUTF(localFile.getName());
                   dos.writeUTF(flag);
+         while (scanner.hasNextLine())
+             cont+= 1;
+         dos.writeInt(cont);
          while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             dos.writeUTF(line);

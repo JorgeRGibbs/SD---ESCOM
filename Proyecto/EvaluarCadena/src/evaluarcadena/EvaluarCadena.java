@@ -101,7 +101,7 @@ public class EvaluarCadena {
                 default:
                     break;
             } 
-    }
+        }
         
         System.out.println("Texto del archivo : " + cadena);
         System.out.println("Resultado: " + resultado);

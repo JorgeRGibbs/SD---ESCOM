@@ -584,18 +584,111 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                 //file = "Hola.txt";//dis.readUTF();
                 //file = dis.readUTF();
                 flag = dis.readUTF();
+                int lim = dis.readInt();
+                String cadena = "";
+                int tam = cadena.length();
+                int resultado = 0;
+                char ce;
                 //System.out.println(file);
                 System.out.println(flag);
                 if (flag.equals("0")) {
                     int i = 0;
-                    int suma = 0;
+                    //INICIALIZAR LA SUMA
+                    //int resultado = 0;
                     System.out.println("imma read the numbas");
-                    while (i < 100) {
+                    //eNTRA FUNCION EVALUAR CADENA
+                    while (i < lim) {
                         //lista.add(Integer.parseInt(dis.readUTF()));
                         //System.out.println(lista);
-                        suma = suma + Integer.parseInt(dis.readUTF());
+                        cadena = cadena + dis.readUTF();
                         i++;
                     }
+                    
+        
+    
+        for(int j=0; j<tam; j++){
+            ce = cadena.charAt(j);
+            switch (ce){
+                case 'a':
+                    resultado += 1;
+                    break;
+                case 'e':
+                    resultado += 1;
+                    break;
+                case 'i':
+                    resultado += 1;
+                    break;
+                case 'o':
+                    resultado += 1;
+                    break;
+                case 'u':
+                    resultado += 1;
+                    break;
+                case 'A':
+                    resultado += 1;
+                    break;
+                case 'E':
+                    resultado += 1;
+                    break;
+                case 'I':
+                    resultado += 1;
+                    break;
+                case 'O':
+                    resultado += 1;
+                    break;
+                case 'U':
+                    resultado += 1;
+                    break;
+                case '1':
+                    resultado += 1;
+                    break;
+                case '2':
+                    resultado += 1;
+                    break;
+                case '3':
+                    resultado += 1;
+                    break;
+                case '4':
+                    resultado += 1;
+                    break;
+                case '5':
+                    resultado += 1;
+                    break;
+                case '.':
+                    resultado += 1;
+                    break;
+                case ',':
+                    resultado += 1;
+                    break;
+                case ';':
+                    resultado += 1;
+                    break;
+                case ':':
+                    resultado += 1;
+                    break;
+                case '\'':
+                    resultado += 1;
+                    break; 
+                case '+':
+                    resultado += 1;
+                    break;
+                case '-':
+                    resultado += 1;
+                    break;
+                case '*':
+                    resultado += 1;
+                    break;
+                case '/':
+                    resultado += 1;
+                    break;
+                case '=':
+                    resultado += 1;
+                    break; 
+                default:
+                    break;
+            } 
+        }
+                    
                     //int suma = lista.stream().mapToInt(Integer::intValue).sum();
                     System.out.println(lista);
                     String ip = dis.readUTF();
@@ -614,16 +707,16 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                         hour = hour.substring(0, 2) + ":" + hour.substring(2, 4) + ":" + hour.substring(4, 6);
                         //int suma = readFile_suma(file);//lee numeros
                         campoHora.setText(hour);
-                        campoSuma.setText(Integer.toString(suma));
+                        campoSuma.setText(Integer.toString(resultado));
                         campoIp.setText(ip);
 
-                        System.out.println("La suma es: " + suma);
+                        System.out.println("Los caracteres se repiten: " + resultado + " veces");
                         String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                         PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
                         System.out.println("sending ip");
                         preparedStmt.setString(1, ip);
                         preparedStmt.setString(2, hour);
-                        preparedStmt.setInt(3, suma);
+                        preparedStmt.setInt(3, resultado);
                         preparedStmt.execute(); //ejecuta comando sql
                         //llenaTabla();
                         //if(flag.equals("0")){
@@ -650,7 +743,7 @@ public class ServidorB extends javax.swing.JFrame implements Runnable {
                             dos.writeUTF(flag);
                             dos.writeUTF(ip);
                             dos.writeUTF(hour);
-                            dos.writeUTF(Integer.toString(suma));
+                            dos.writeUTF(Integer.toString(resultado));
                             /*//dos.writeUTF(ip.getHostAddress());
                              String uhr;
                              String minuten;
