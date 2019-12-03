@@ -215,8 +215,8 @@ static DefaultTableModel model;
             sum += Integer.parseInt(numeros[i]);
         }
         
-          
-        return sum;*/
+          /*
+        return sum;
         
         String cadena = "";
         String archivo = "C:/Users/gerar/Desktop/archivo.txt";
@@ -225,94 +225,94 @@ static DefaultTableModel model;
             cadena += scan.nextLine();
         
         int tam = cadena.length();
-        int resultado = 0;
+        int suma = 0;
         char ce;
     
         for(int i=0; i<tam; i++){
             ce = cadena.charAt(i);
             switch (ce){
                 case 'a':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'e':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'i':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'o':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'u':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'A':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'E':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'I':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'O':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case 'U':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '1':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '2':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '3':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '4':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '5':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '.':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case ',':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case ';':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case ':':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '\'':
-                    resultado += 1;
+                    suma += 1;
                     break; 
                 case '+':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '-':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '*':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '/':
-                    resultado += 1;
+                    suma += 1;
                     break;
                 case '=':
-                    resultado += 1;
+                    suma += 1;
                     break; 
                 default:
                     break;
             } 
     }
-    
-    return resultado;
-        
+    */
+    return 1;
+       
 }
         
     /**
@@ -407,18 +407,109 @@ static DefaultTableModel model;
                 //file = "Hola.txt";//dis.readUTF();
                 //file = dis.readUTF();
                 flag = dis.readUTF();
+                String cadena = "";
                 //System.out.println(file);
                 System.out.println(flag);
                 if(flag.equals("0")){
                     int i = 0;
                     int suma = 0;
                     System.out.println("imma read the numbas");
-                    while(i<100){
+                    while(i<13){
                         //lista.add(Integer.parseInt(dis.readUTF()));
                         //System.out.println(lista);
-                        suma = suma + Integer.parseInt(dis.readUTF());
+                         cadena += dis.readUTF();
                         i++;
                     }
+                    
+                    int tam = cadena.length();
+      //  int suma = 0;
+        char ce;
+    
+        for(int j=0; j<tam; j++){
+            ce = cadena.charAt(j);
+            switch (ce){
+                case 'a':
+                    suma += 1;
+                    break;
+                case 'e':
+                    suma += 1;
+                    break;
+                case 'i':
+                    suma += 1;
+                    break;
+                case 'o':
+                    suma += 1;
+                    break;
+                case 'u':
+                    suma += 1;
+                    break;
+                case 'A':
+                    suma += 1;
+                    break;
+                case 'E':
+                    suma += 1;
+                    break;
+                case 'I':
+                    suma += 1;
+                    break;
+                case 'O':
+                    suma += 1;
+                    break;
+                case 'U':
+                    suma += 1;
+                    break;
+                case '1':
+                    suma += 1;
+                    break;
+                case '2':
+                    suma += 1;
+                    break;
+                case '3':
+                    suma += 1;
+                    break;
+                case '4':
+                    suma += 1;
+                    break;
+                case '5':
+                    suma += 1;
+                    break;
+                case '.':
+                    suma += 1;
+                    break;
+                case ',':
+                    suma += 1;
+                    break;
+                case ';':
+                    suma += 1;
+                    break;
+                case ':':
+                    suma += 1;
+                    break;
+                case '\'':
+                    suma += 1;
+                    break; 
+                case '+':
+                    suma += 1;
+                    break;
+                case '-':
+                    suma += 1;
+                    break;
+                case '*':
+                    suma += 1;
+                    break;
+                case '/':
+                    suma += 1;
+                    break;
+                case '=':
+                    suma += 1;
+                    break; 
+                default:
+                    break;
+            } 
+    }
+                    
+                    
+                    
                     //int suma = lista.stream().mapToInt(Integer::intValue).sum();
                     System.out.println(lista);
                     String ip = dis.readUTF();
@@ -441,6 +532,8 @@ static DefaultTableModel model;
                     campoIp.setText(ip);
 
                     System.out.println("La suma es: " + suma);
+                        System.out.println("Cadena: "+cadena);
+                        System.out.println("Tam: "+tam);
                     String query = " INSERT INTO PLAYER (IP, HORA , SUMA)" + " values (?, ?, ?)"; //inserta valores recibidos en base de datos
                     PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
                     System.out.println("sending ip");

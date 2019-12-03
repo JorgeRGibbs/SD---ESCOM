@@ -188,7 +188,7 @@ public class Jugador1 extends javax.swing.JFrame {
         dataOutputStream.close(); 
         System.out.println("Closing socket and terminating program.");
         socket.close();
-    }*/
+    }*/ 
     public void enviar(){
         DataInputStream input;
         BufferedInputStream bis;
@@ -199,7 +199,7 @@ public class Jugador1 extends javax.swing.JFrame {
         try{
          InetAddress ip = InetAddress.getLocalHost();
          final File localFile = new File( this.fileName );
-         Socket client = new Socket("localhost", 5800); //servidor
+         Socket client = new Socket("10.100.68.200", 5800); //servidor
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
