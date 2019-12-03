@@ -203,14 +203,25 @@ public class Jugador1 extends javax.swing.JFrame {
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
+         int cont = 0;
          Scanner scanner = new Scanner(new File(this.fileName));
                   //dos.writeUTF(localFile.getName());
                   dos.writeUTF(flag);
+         /*while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            dos.writeUTF(line);
+        // process the line
+         }*/
+         
+         while (scanner.hasNextLine())
+             cont+= 1;
+         dos.writeInt(cont);
          while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             dos.writeUTF(line);
         // process the line
          }
+         
          dos.writeUTF(ip.getHostAddress());
          String uhr;
          String minuten;
