@@ -408,13 +408,15 @@ static DefaultTableModel model;
                 //file = dis.readUTF();
                 flag = dis.readUTF();
                 String cadena = "";
+                
                 //System.out.println(file);
                 System.out.println(flag);
                 if(flag.equals("0")){
                     int i = 0;
                     int suma = 0;
+                    int limite = dis.readInt();
                     System.out.println("imma read the numbas");
-                    while(i<13){
+                    while(i<limite){
                         //lista.add(Integer.parseInt(dis.readUTF()));
                         //System.out.println(lista);
                          cadena += dis.readUTF();
@@ -424,7 +426,7 @@ static DefaultTableModel model;
                     int tam = cadena.length();
       //  int suma = 0;
         char ce;
-    
+        
         for(int j=0; j<tam; j++){
             ce = cadena.charAt(j);
             switch (ce){
