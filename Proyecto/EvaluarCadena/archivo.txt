@@ -3,8 +3,11 @@ AEIOU
 12345
 .,;:'
 +-*/=
-aeiou
-AEIOU
-12345
-.,;:'
-+-*/=
+bcdfg
+hjklm
+nñpqr
+stvwx
+yz678
+90"#$
+%&¿(
+)?¡!{
