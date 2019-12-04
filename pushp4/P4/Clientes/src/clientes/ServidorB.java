@@ -414,9 +414,9 @@ static DefaultTableModel model;
                 if(flag.equals("0")){
                     int i = 0;
                     int suma = 0;
-                    int limite = dis.readInt();
+                    int lim = dis.readInt();
                     System.out.println("imma read the numbas");
-                    while(i<limite){
+                    while(i<lim){
                         //lista.add(Integer.parseInt(dis.readUTF()));
                         //System.out.println(lista);
                          cadena += dis.readUTF();

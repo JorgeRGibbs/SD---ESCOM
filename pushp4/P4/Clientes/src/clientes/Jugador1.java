@@ -199,7 +199,7 @@ public class Jugador1 extends javax.swing.JFrame {
         try{
          InetAddress ip = InetAddress.getLocalHost();
          final File localFile = new File( this.fileName );
-         Socket client = new Socket("10.100.68.200", 5800); //servidor
+         Socket client = new Socket("10.100.66.111", 5800); //servidor
          bis = new BufferedInputStream(new FileInputStream(localFile));
          bos = new BufferedOutputStream(client.getOutputStream());
          DataOutputStream dos=new DataOutputStream(client.getOutputStream());
@@ -207,16 +207,22 @@ public class Jugador1 extends javax.swing.JFrame {
          Scanner scanner = new Scanner(new File(this.fileName));
                   //dos.writeUTF(localFile.getName());
                   dos.writeUTF(flag);
-        while (scanner.hasNextLine()) {
-            cont += 1;
-        // process the line
+        Scanner scan = new Scanner(new File(this.fileName));
+        while (scan.hasNextLine()) {
+            String cad = scan.nextLine();
+            cont ++;
+            //System.out.println("cont: "+ cont);
+        //process the line
          }
+            System.out.println("cont = " + cont);
+            //System.out.println(cont);
         dos.writeInt(cont);
          while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+            String line = scanner.nextLine();  
             dos.writeUTF(line);
         // process the line
          }
+            //System.out.println(cont);
          dos.writeUTF(ip.getHostAddress());
          String uhr;
          String minuten;
