@@ -226,7 +226,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Century Schoolbook", 2, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 0, 204));
-        jLabel7.setText("PRÁCTICA 1. RELOJES");
+        jLabel7.setText("RELOJES.");
 
         BtnGrpEditar.add(jRadioButton1);
         jRadioButton1.setText("Cliente 1");
