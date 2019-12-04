@@ -111,9 +111,9 @@ public class TiempoServer implements Runnable {
             Process p = Runtime.getRuntime().exec("C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump -u root -proot clk");
             OutputStream os = p.getOutputStream();
             FileInputStream fis = new FileInputStream("respaldo.sql");
-
+    
             byte[] buffer = new byte[1000];
-
+    
             int leido = fis.read(buffer);
             while (leido > 0) {
                 os.write(buffer, 0, leido);

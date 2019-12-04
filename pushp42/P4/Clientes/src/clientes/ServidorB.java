@@ -5,46 +5,13 @@
  */
 package clientes;
 
-import static clientes.Jugador1.uno;
-import java.awt.Component;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTextField;
-//import hilo.Hilito;//
-//import static servidor.Interfaz.cuatro;
-
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.Random;
-import java.util.Scanner;
-import javax.swing.JFileChooser;
 
 //import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Connection;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -55,13 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-//import static practica1.CoordinadorServer.model;
-//import static practica1.CoordinadorServer.readFile_suma;
-
 
 /**
  *
@@ -197,120 +158,7 @@ static DefaultTableModel model;
     }
     
     public static int readFile_suma(String file_path) throws IOException{
-        /*int sum = 0;
-        File file = new File(file_path);
-  
-        BufferedReader br = new BufferedReader(new FileReader(file)); 
-  
-        String st = ""; 
-        st = br.readLine();
-            
-        //System.out.println(st);
-         //list[i] = Integer.parseInt(st);
-                //i++;
-         //System.out.println(st);
-        String [] numeros = st.split(",");
-        for(int i = 0 ; i < numeros.length ; i++){
-            System.out.println("["+i+"] " + Integer.parseInt(numeros[i]));
-            sum += Integer.parseInt(numeros[i]);
-        }
-        
-          /*
-        return sum;
-        
-        String cadena = "";
-        String archivo = "C:/Users/gerar/Desktop/archivo.txt";
-        Scanner scan = new Scanner(new File(archivo));
-        while (scan.hasNextLine())
-            cadena += scan.nextLine();
-        
-        int tam = cadena.length();
-        int suma = 0;
-        char ce;
     
-        for(int i=0; i<tam; i++){
-            ce = cadena.charAt(i);
-            switch (ce){
-                case 'a':
-                    suma += 1;
-                    break;
-                case 'e':
-                    suma += 1;
-                    break;
-                case 'i':
-                    suma += 1;
-                    break;
-                case 'o':
-                    suma += 1;
-                    break;
-                case 'u':
-                    suma += 1;
-                    break;
-                case 'A':
-                    suma += 1;
-                    break;
-                case 'E':
-                    suma += 1;
-                    break;
-                case 'I':
-                    suma += 1;
-                    break;
-                case 'O':
-                    suma += 1;
-                    break;
-                case 'U':
-                    suma += 1;
-                    break;
-                case '1':
-                    suma += 1;
-                    break;
-                case '2':
-                    suma += 1;
-                    break;
-                case '3':
-                    suma += 1;
-                    break;
-                case '4':
-                    suma += 1;
-                    break;
-                case '5':
-                    suma += 1;
-                    break;
-                case '.':
-                    suma += 1;
-                    break;
-                case ',':
-                    suma += 1;
-                    break;
-                case ';':
-                    suma += 1;
-                    break;
-                case ':':
-                    suma += 1;
-                    break;
-                case '\'':
-                    suma += 1;
-                    break; 
-                case '+':
-                    suma += 1;
-                    break;
-                case '-':
-                    suma += 1;
-                    break;
-                case '*':
-                    suma += 1;
-                    break;
-                case '/':
-                    suma += 1;
-                    break;
-                case '=':
-                    suma += 1;
-                    break; 
-                default:
-                    break;
-            } 
-    }
-    */
     return 1;
        
 }
@@ -319,61 +167,7 @@ static DefaultTableModel model;
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServidorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ServidorB().setVisible(true);
@@ -524,9 +318,7 @@ static DefaultTableModel model;
                 default:
                     break;
             } 
-    }
-                    
-                    
+    }                    
                     
                     //int suma = lista.stream().mapToInt(Integer::intValue).sum();
                     System.out.println(lista);
@@ -653,6 +445,7 @@ static DefaultTableModel model;
             System.out.println(e);
         }
     }
+    
     public static void llenaTabla() throws SQLException{
     String query = "SELECT * FROM PLAYER"; // consulta a la tabla informacion
     int i = 0;
