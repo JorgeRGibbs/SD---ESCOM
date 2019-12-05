@@ -1,11 +1,27 @@
-create database if not exists coordinador;
-USE coordinador;
-CREATE TABLE if not exists PLAYER(
-IP varchar(30),
-HORA VARCHAR(20),
-SUMA INT
-);
+drop database if exists clk;
+create database clk; 
+use clk; 
+create table HoraCentral(
+ID int not null primary key auto_increment, 
+-- hPrev varchar(20), 
+hRef varchar(20) -- Hora del Servidor de Tiempo
+); 
 
-DROP TABLE PLAYER;
+create table Equipos(
+HoraEquipos_ID int not null primary key auto_increment, 
+IP varchar(20), -- IP del equipo 
+Nombre varchar (50), -- Nombre de la clase
+Latencia varchar(20) -- Latencia
+); 
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+create table HoraEquipos(
+ID int not null primary key auto_increment, 
+IDhSincr int, 
+foreign key (IDhSincr) references HoraCentral(ID) on delete cascade on update cascade, 
+IDEquipo int, 
+foreign key (IDEquipo) references Equipos(HoraEquipos_ID) on delete cascade on update cascade, 
+hEquipo varchar(20), -- Hora del coordinador cuando solicita la hora 
+Error varchar(20)
+); 
+
+

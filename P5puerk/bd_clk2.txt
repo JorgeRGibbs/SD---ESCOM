@@ -21,8 +21,8 @@ foreign key (IDhSincr) references HoraCentral(ID) on delete cascade on update ca
 IDEquipo int, 
 foreign key (IDEquipo) references Equipos(HoraEquipos_ID) on delete cascade on update cascade, 
 hEquipo varchar(20), -- Hora del coordinador cuando solicita la hora 
-Error varchar(20),  -- Error de cálculo de Christian
-ralentizar varchar(20) null -- 1 si se ralentizo, 0 si no
+--Error varchar(20),  -- Error de cálculo de Christian
+--ralentizar varchar(20) null -- 1 si se ralentizo, 0 si no
 ); 
 
 
